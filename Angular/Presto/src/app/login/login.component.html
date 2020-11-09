@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row justify-content-center align-self-center">
+    <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100 mt-5 border">
+      <form [formGroup]="signInForm" (ngSubmit)="login()">
+
+        <div *ngIf="errorMessageLogin" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <div class="text-center"> Email ou senha incorretos </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="successMessageLogin" class="alert alert-success alert-dismissible fade show" role="alert">
+          <div class="text-center"> Usuário logado com sucesso. Redirecionando para a página de pedidos</div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="ml-1 mt-3 font-weight-bold">Digite seu email:</label>
+          <input type="text" class="form-control form-control-lg text-center" name="email" id="email" formControlName="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label for="senha" class="ml-1 mt-3 font-weight-bold">Digite sua senha:</label>
+          <input class="form-control form-control-lg text-center" name="senha" id="senha" formControlName="senha" placeholder="Senha" type="password" required>
+
+          <!-- <div *ngIf="!confereSenha()"> Usuário ou senha incoretos </div> -->
+        </div>
+        <div class="form-group">
+          <button class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Entrar</button>
+        </div>
+      </form>
+      <ul class="nav justify-content-center pb-2">
+        <li class="nav-item">
+          <a routerLink="/login" class="nav-link mr-5 pr-5" data-toggle="modal" data-target="#exampleModal">Esqueceu sua senha?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ml-3" routerLink="/cadastro">Cadastre-se</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deseja realmente redefinir a senha?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+          <div class="text-center">E-mail enviado com sucesso! Confira sua caixa de e-mails</div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <div class="text-center">Endereço de e-mail não registrado</div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <p>Um e-mail com uma nova senha será encaminhada para seu endereço de e-mail</p>
+          <label for="nome"  class="ml-1 mt-3 font-weight-bold">Digite o seu email cadastrado.</label>
+          <input type="text" (input)="this.emailRedef=$event.target.value" class="form-control form-control-lg text-center" name="email" id="emailRedef" placeholder="exemplo@email.com" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="enviarSenhaPorEmail()">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
