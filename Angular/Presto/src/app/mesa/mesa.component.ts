@@ -1,4 +1,3 @@
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MesaService } from './mesaService';
 import { Component, OnInit } from '@angular/core';
@@ -27,7 +26,7 @@ export class MesaComponent implements OnInit {
 
   produtosCardapio: Produto[];
   produtosPedido: Produto[] = new Array;
-  booleanoLista: boolean = false;
+  mostrarProdutos: number = 1;
 
   demo = document.querySelector('#demo-id');
 
@@ -97,7 +96,7 @@ export class MesaComponent implements OnInit {
   addPedidoNaMesa() {
     this.mesaService.addPedidoMesa(this.mesaNome, this.pedidoForm.value).subscribe(
       pedidoReceive => {
-        this.booleanoLista = true
+        this.mostrarProdutos = 2
         this.pedido = pedidoReceive
         console.log(pedidoReceive)
       }
@@ -115,7 +114,7 @@ export class MesaComponent implements OnInit {
     this.mesaService.addProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
-        this.booleanoLista = false;
+        this.mostrarProdutos = 3;
         while(this.produtosPedido.length){
           this.produtosPedido.pop();
         }
@@ -144,5 +143,21 @@ export class MesaComponent implements OnInit {
       }
 
     )
+  }
+
+  getTempo(id: number ,somaTempo: number) {
+    var now = new Date();
+    var tempo = new Date();
+
+    var armazenaTempo = now.getMinutes() + somaTempo;
+    console.log(armazenaTempo);
+    tempo.setMinutes(armazenaTempo);
+    console.log(tempo);
+
+    this.mesaService.tempoMesa(id, tempo).subscribe(
+      tempoCadastrado => {this.pedido = tempoCadastrado;
+      this.load();}
+    )
+
   }
 }
