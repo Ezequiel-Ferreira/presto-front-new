@@ -41,6 +41,8 @@ export class MesaService {
   removePedidoMesa(idMesa: number, idPedido: number): Observable<any> {
     return this.http.put<any>(`http://localhost:8080/mesa/removepedido/${idMesa}/${idPedido}`, true)
   }
+
+  tempoMesa(idPedido: number, tempoIdeal: Date): Observable<any> {
+    return this.http.put<any>(`http://localhost:8080/pedido/addtempo/${idPedido}`, tempoIdeal.toJSON)
+  }
 }
-
-

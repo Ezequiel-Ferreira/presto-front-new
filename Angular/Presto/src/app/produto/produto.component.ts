@@ -5,6 +5,7 @@ import { ProdutoService } from './produto.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { profile } from 'console';
 
 @Component({
   selector: 'app-produto',
@@ -13,7 +14,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProdutoComponent implements OnInit {
 
-  nome:string;
+  id:number;
   updateProdutoForm: FormGroup;
   produtos: Produto[];
 
@@ -45,10 +46,10 @@ export class ProdutoComponent implements OnInit {
 
     this.updateProdutoForm = this.fb.group({
       nome: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       tempo: ['', [Validators.required]],
-      imagem: ['', [Validators.required]]
+      valor: ['', Validators.required],
+      imagem: ['']
     })
 
     this.imageForm = this.fbImage.group({
@@ -66,15 +67,30 @@ export class ProdutoComponent implements OnInit {
 
 
 
-  capturaNome(nome: string){
-    console.log(nome);
-    this.nome = nome;
+  capturaId(id: number){
+    console.log(id);
+    this.id = id;
   }
 
-  updateProduto(nome: string) {
-    this.produtoService.updateProduto(this.updateProdutoForm.value, nome).subscribe(
-      produtoAtualizado => {console.log(produtoAtualizado)}
-    )
+  updateProduto(id: number) {
+    // this.produtoService.updateProduto(this.updateProdutoForm.value, nome).subscribe(
+    //   produtoAtualizado => {console.log(produtoAtualizado)}
+    console.log(this.updateProdutoForm.value);
+    if(this.imageForm.get('profile').value != ''){
+      this.formData.append('nome', this.updateProdutoForm.get('nome').value);
+      this.formData.append('descricao', this.updateProdutoForm.get('descricao').value);
+      this.formData.append('tempo', this.updateProdutoForm.get('tempo').value);
+      this.formData.append('valor', this.updateProdutoForm.get('valor').value);
+      this.formData.append('imagem', this.updateProdutoForm.get('imagem').value);
+      this.formData.append('file', this.imageForm.get('profile').value);
+      this.http.put("http://localhost:8080/produto/update/" + id ,this.formData).subscribe(
+        event => {console.log(event), this.load()});
+    } else if(this.imageForm.get('profile').value === '') {
+
+      this.http.put("http://localhost:8080/produto/updatesemimagem/" + id ,this.updateProdutoForm.value).subscribe(
+        event => {console.log(event), this.load()});
+    }
+
   }
 
 
@@ -94,6 +110,14 @@ export class ProdutoComponent implements OnInit {
         this.load();
       }
     )
+  }
+
+  public onFileChanged(event) {
+    //Select File
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.imageForm.get('profile').setValue(file);
+    }
   }
 
   // Edit product

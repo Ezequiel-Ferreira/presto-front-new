@@ -80,7 +80,7 @@ export class CadastroComponent implements OnInit {
       response => {
         console.log(response);
         this.mostrarModalCardapioCriar  = false;
-        setTimeout(() => { this.route.navigate(['/login']); }, 10000)
+        setTimeout(() => { this.route.navigate(['/login']); }, 1000)
       }
     )
   }

@@ -1,24 +1,25 @@
 <div class="container-fluid">
-    <div class="row" >
-        <div class="col-md-4" *ngFor="let produto of produtos" >
+    <div class="row">
+        <div class="col-md-4" *ngFor="let produto of produtos">
             <!-- card 1 -->
-            <div class="card card body rounded m-5 bg-light border" style="max-width: 540px;" >
-                <div class="row no-gutters" >
+            <div class="card card body rounded m-5 bg-white border h-75" style="max-width: 540px;">
+                <div class="row no-gutters">
                     <div class="col-md-4 px-3 my-5">
                         <img [src]="'../../assets/imagens/' + produto?.imagem" class="card-img rounded" [alt]="produto.nome">
                     </div>
                     <div class="col-md-8">
                         <!-- card 2 -->
-                        <div class="card-body bg-light m-1">
+                        <div class="card-body bg-white m-1">
                             <h5 class="card-title">{{produto?.nome}}</h5>
                             <p class="card-text">{{produto?.descricao}}</p>
-                            <button type="button" class="btn" style="background-color: #6c757d; color: white;" (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
+                            <button type="button" class="btn addedit" (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
 
-                            <button type="button" class="btn my-1 mr-5" data-toggle="modal" [attr.data-target]="'#myModal'+produto.id" style="background-color: #6c757d; color: white;" (click)="capturaNome(produto.nome)">
-            Editar {{produto?.nome}}
-            </button>
+                            <button type="button" class="btn my-1 mr-5 addedit" data-toggle="modal" [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
+                Editar {{produto?.nome}}
+              </button>
 
-                            <button type="button" class="btn mr-5" style="background-color: #dd2d2d; color: white;" (click)="deletarProduto(produto.id)">Remover produto</button>
+                            <button type="button" class="btn mr-5 remover" (click)="deletarProduto(produto?.id)">Remover
+                produto</button>
                         </div>
 
                     </div>
@@ -37,52 +38,45 @@
       </button> -->
 
                 <!-- Modal Edição Produtos-->
-                <div class="modal fade" [attr.id]="'myModal'+produto.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" [attr.id]="'myModal'+produto?.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">{{produto.nome}}</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">{{produto?.nome}}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                  <span aria-hidden="true">&times;</span>
+                </button>
                             </div>
                             <div class="modal-body">
-                                <form [formGroup]="updateProdutoForm" (ngSubmit)="updateProduto(nome)">
+                                <form [formGroup]="updateProdutoForm" (ngSubmit)="updateProduto(id)">
 
                                     <div class="form-group">
                                         <label for="nome" class="ml-1 mt-3 font-weight-bold">Qual o nome do produto:</label>
-                                        <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome" placeholder="Nome" required>
+                                        <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome" required>
 
-                                    </div>
-
-                                    <p><strong>Qual o tipo do produto?</strong></p>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipo" id="tipo1" value="comida" formControlName="tipo" checked>
-                                        <label class="form-check-label" for="tipo1">
-                                  Comida
-                                </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipo" id="tipo2" value="bebida" formControlName="tipo">
-                                        <label class="form-check-label" for="tipo2">
-                                  Bebida
-                                </label>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="descricao" class="ml-1 mt-3 font-weight-bold">Adicione uma descrição para o produto:</label>
-                                        <input class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" placeholder="Ex: Coca Cola 2l" required>
+                                        <label for="descricao" class="ml-1 mt-3 font-weight-bold">Adicione uma descrição para o
+                      produto:</label>
+                                        <input class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" required>
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="tempo" class="ml-1 mt-3 font-weight-bold">Em quantos minutos o produto estará pronto?</label>
-                                        <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo" formControlName="tempo" placeholder="15" required>
+                                        <label for="tempo" class="ml-1 mt-3 font-weight-bold">Em quantos minutos o produto estará
+                      pronto?</label>
+                                        <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo" formControlName="tempo" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="valor" class="ml-1 mt-3 font-weight-bold">Valor do produto?</label>
+                                        <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor" formControlName="valor">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="imagem" class="ml-1 mt-3 font-weight-bold">Qual o endereço da imagem do produto?</label>
-                                        <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem" formControlName="imagem" required>
+                                        <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem" formControlName="imagem" (change)="onFileChanged($event)">
                                     </div>
 
                                     <!-- <div class="form-group">
@@ -107,29 +101,27 @@
         </div>
 
         <!--Modal Adicionar Produto-->
-        <div class="col">
-            <div class="row" style="margin-left: 15%; margin-top: 25%;">
-                <div type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalNovoProduto">
-                    <!-- <fa-icon [icon]="faPlus" style="color: white;"></fa-icon> -->
-                </div>
+        <div class="col-md-4 text-center d-flex h-100 justify-content-center align-self-center">
+            <div type="button" class="btn btn-outline-primary plus" data-toggle="modal" data-target="#modalNovoProduto">
+                <fa-icon [icon]="faPlus" style="color: white;"></fa-icon>
             </div>
-            <div class="modal fade" id="modalNovoProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+        <div class="modal fade" id="modalNovoProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Novo produto</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Novo produto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-                        </div>
-                        <div class="modal-body">
-                            <app-cadastroproduto></app-cadastroproduto>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <app-cadastroproduto></app-cadastroproduto>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>

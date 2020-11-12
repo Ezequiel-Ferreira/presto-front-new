@@ -1,12 +1,20 @@
-.navbar{
-  background-color: #DD2D2D;
-  height: 60px;
+.navbar {
+    background-color: #DD2D2D;
+    height: 60px;
 }
 
-.navbar-brand{
-  transform: translateX(-50%);
-  left: 50%;
-  position: absolute;
+.navbar-brand {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
 }
 
+ul.navbar-nav a {
+    color: white;
+    transition: ease;
+    -webkit-transition: color 0.3s;
+}
 
+ul.navbar-nav a:hover {
+    color: #222425 !important;
+}

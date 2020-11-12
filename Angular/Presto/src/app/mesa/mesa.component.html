@@ -9,15 +9,19 @@
                         <div class="card-header"> {{mesa?.nome}} </div>
                         <div class="card-body bg-success">
                             <!-- {{mesa?.status}} -->
+                            <h4>Em andamento</h4>
+
+                            <!--
                             <h4 *ngIf="mesa.pedido === null">Sem Pedido</h4>
-                            <h4 *ngIf="mesa.pedido !== null && this.minuto < mesa?.pedido?.maiorTempo"  id="demo-id" class="card-title"> Em andamento </h4>
-                            <h4 *ngIf="mesa.pedido !== null && this.minuto >= mesa?.pedido?.maiorTempo"  > Atrasado</h4>
+                            <h4 *ngIf="mesa.pedido !== null && this.minuto < mesa?.pedido?.tempoIdeal.getDate()" id="demo-id" class="card-title">Em andamento</h4>
+                            <h4 *ngIf="mesa.pedido !== null && this.minuto >= mesa?.pedido?.maiorTempo">Atrasado</h4>
+                            -->
                         </div>
 
                         <!--Modal Criação Pedido-->
                         <div class="col">
                             <!--Botão de chamada do Modal-->
-                            <button *ngIf="mesa?.pedido === null"  type="button" class="btn btn-outline-primary" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #6c757d; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
+                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #6c757d; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
                             <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->
                                 <div class="modal-dialog" role="document">
@@ -30,7 +34,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <form [formGroup]="pedidoForm" (ngSubmit)="addPedidoNaMesa()">
-                                                <div class="form-group">
+                                                <div class="form-group" *ngIf="mostrarProdutos === 1">
                                                     <label for="descricao" class="ml-1 mt-3 font-weight-bold">Descricao
                             pedido:</label>
                                                     <input type="text" class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" placeholder="Descricao" required>
@@ -39,19 +43,24 @@
                                                     </div>
                                                 </div>
 
-                                                <div *ngIf="booleanoLista">
+                                                <div *ngIf="mostrarProdutos === 2">
                                                     <div *ngFor="let produto of produtosCardapio">
                                                         <label [for]="produto.nome">{{produto.nome}} <button type="button"
                                 class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)">+</button>
                             </label>
                                                     </div>
 
-                                                    <div>
-                                                    </div>
+
 
                                                     <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="registarProdutosPedido()">Registrar</button>
                                                 </div>
+
+                                                <div *ngIf="mostrarProdutos === 3">
+                                                    <label for="">Clique em OK para confirmar os produtos</label>
+                                                    <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="getTempo(pedido?.id, pedido?.maiorTempo)">OK</button>
+                                                </div>
                                             </form>
+
 
                                         </div>
                                         <div class="modal-footer">
@@ -67,7 +76,7 @@
                         <div class="col">
                             <!--Botão de chamada do Modal-->
 
-                            <button *ngIf="mesa.pedido !== null"  type="button" class="btn btn-outline-primary" data-toggle="modal" [attr.data-target]="'#modalPedidoMesa'+mesa.id" style="background-color: blue; color: white;" (click)="pedidoDaMesa(mesa.id)">Detalhes da Mesa</button>
+                            <button *ngIf="mesa.pedido !== null" type="button" class="btn btn-outline-primary" data-toggle="modal" [attr.data-target]="'#modalPedidoMesa'+mesa.id" style="background-color: blue; color: white;" (click)="pedidoDaMesa(mesa.id)">Detalhes da Mesa</button>
 
                             <div class="modal fade" [attr.id]="'modalPedidoMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->
@@ -86,13 +95,13 @@
                                                     <p>{{produto?.nome}}---------------- R${{produto?.valor}}</p>
                                                 </div>
                                             </div>
-                                        <div class="total">
-                                          <h2>Valor total do pedido R${{pedidoMesa?.valorTotal}}</h2>
-                                          <p>Tempo maximo para o pedido ser entregue {{pedidoMesa?.maiorTempo}} minutos</p>
-                                        </div>
+                                            <div class="total">
+                                                <h2>Valor total do pedido R${{pedidoMesa?.valorTotal}}</h2>
+                                                <p>Tempo maximo para o pedido ser entregue {{pedidoMesa?.maiorTempo}} minutos</p>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary float-left"(click)="start()" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)"  >Finalizar pedido</button>
+                                            <button type="button" class="btn btn-secondary float-left" (click)="start()" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)">Finalizar pedido</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-primary">Save</button>
                                         </div>

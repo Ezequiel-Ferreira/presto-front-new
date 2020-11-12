@@ -43,6 +43,15 @@ export class CadastroprodutoComponent implements OnInit {
   }
 
 
+  load() {
+    sessionStorage.refresh = true;
+    console.log('sessionStorage', sessionStorage);
+    // tslint:disable-next-line: no-unused-expression
+    (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
+        && location.reload();
+    sessionStorage.refresh = false;
+  }
+
   public onFileChanged(event) {
     //Select File
     if (event.target.files.length > 0) {
@@ -66,7 +75,7 @@ export class CadastroprodutoComponent implements OnInit {
     this.formData.append('imagem', this.produtoForm.get('imagem').value);
     this.formData.append('file', this.imagemForm.get('profile').value);
     this.http.post("http://localhost:8080/produto/create/" + this.authService.loggedUser().id, this.formData).subscribe(
-      event => {console.log(event)});
+      event => {console.log(event), this.load()});
   }
 
   // uploadarImage(file: File) {
