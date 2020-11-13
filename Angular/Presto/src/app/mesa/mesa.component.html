@@ -6,8 +6,8 @@
 
                 <div class="card-body col-md-2" *ngFor="let mesa of mesas">
                     <div class="card border">
-                        <div class="card-header"> {{mesa?.nome}} </div>
-                        <div class="card-body bg-success">
+                        <div class="card-header bg-white"> {{mesa?.nome}} </div>
+                        <div class="card-body bg-success m-2 rounded">
                             <!-- {{mesa?.status}} -->
                             <h4>Em andamento</h4>
 
@@ -19,9 +19,9 @@
                         </div>
 
                         <!--Modal Criação Pedido-->
-                        <div class="col">
+                        <div class="col d-flex justify-content-center">
                             <!--Botão de chamada do Modal-->
-                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary m-2" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #6c757d; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
+                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary m-2" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #007bff; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
                             <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->
                                 <div class="modal-dialog" role="document">
@@ -72,10 +72,10 @@
                         </div>
 
                         <!--Modal Detalhes Mesa-->
-                        <div class="col">
+                        <div class="col d-flex justify-content-center">
                             <!--Botão de chamada do Modal-->
 
-                            <button *ngIf="mesa.pedido !== null" type="button" class="btn btn-outline-primary" data-toggle="modal" [attr.data-target]="'#modalPedidoMesa'+mesa.id" style="background-color: blue; color: white;" (click)="pedidoDaMesa(mesa.id)">Detalhes da Mesa</button>
+                            <button *ngIf="mesa.pedido !== null" type="button" class="btn btn-outline-primary m-2" data-toggle="modal" [attr.data-target]="'#modalPedidoMesa'+mesa.id" style="background-color:#6c757d; color: white;" (click)="pedidoDaMesa(mesa.id)">Detalhes da Mesa</button>
 
                             <div class="modal fade" [attr.id]="'modalPedidoMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->

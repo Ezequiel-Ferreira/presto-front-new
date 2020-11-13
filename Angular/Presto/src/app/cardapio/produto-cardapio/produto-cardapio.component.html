@@ -1,36 +1,51 @@
-<div class="card mt-5" style="width: 18rem;">
-  <img [src]="'../../assets/imagens/' + produto?.imagem" class="card-img rounded" [alt]="produto?.nome" style="max-height: 100em;">
-  <div class="card-body">
-    <h5 class="card-title titulo">{{produto?.nome}}</h5>
-  </div>
-  <p class="ml-4">{{produto?.descricao}}</p>
+  <div class="container-fluid">
+    <div class="card card body rounded m-5 bg-white border">
+      <div class="p-3">
+        <img [src]="'../../assets/imagens/' + produto?.imagem" class="card-img rounded" [alt]="produto?.nome" style="max-height: 100em;">
+      </div>
 
-  <button type="button" class="btn mx-5 mb-1" (click)="removerProdutoDoCardapio(produto)" style="background-color: #dd2d2d; color: white;">
-    Remover
-  </button>
+      <div class="card-body bg-white m-1 ">
 
-  <button type="button" class="btn mx-5 mb-1" data-toggle="modal" [attr.data-target]="'#'+produto.tipo" style="background-color: #007bfe; color: white;">
-    Editar {{produto?.nome}}
-  </button>
+        <div class="d-flex flex-column">
+          <h5 class="card-title titulo">{{produto?.nome}}</h5>
+          <p>{{produto?.descricao}}</p>
+        </div>
 
-  <!-- Modal -->
-  <div class="modal fade" [attr.id]="produto?.tipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{produto.nome}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn" (click)="removerProdutoDoCardapio(produto)" style="background-color: #dd2d2d; color: white;">
+            Remover
           </button>
         </div>
-        <div class="modal-body">
-          <img src="{{produto?.imagem}}" alt="Imagem do produto">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+
       </div>
+
     </div>
   </div>
-</div>
+
+
+      <!-- <button type="button" class="btn mx-5 mb-1" data-toggle="modal" [attr.data-target]="'#'+produto.tipo" style="background-color: #007bfe; color: white;">
+        Editar {{produto?.nome}}
+      </button> -->
+
+      <!-- Modal
+      <div class="modal fade" [attr.id]="produto?.tipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{produto.nome}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img src="{{produto?.imagem}}" alt="Imagem do produto">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+

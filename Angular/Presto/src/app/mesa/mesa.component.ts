@@ -121,8 +121,9 @@ export class MesaComponent implements OnInit {
         while(this.produtosPedido.length){
           this.produtosPedido.pop();
         }
+
         this.fechaModalPedido.nativeElement.click();
-        this.load();
+
       }
     )
   }
