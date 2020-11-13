@@ -56,16 +56,14 @@ export class ProdutoComponent implements OnInit {
       profile: ['']
     })
   }
+
   load() {
-    sessionStorage.refresh = true;
-    console.log('sessionStorage', sessionStorage);
-    // tslint:disable-next-line: no-unused-expression
-    (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
-        && location.reload();
-    sessionStorage.refresh = false;
+    this.produtoService.produtos().subscribe(
+      produtosLista => {
+        this.produtos = produtosLista;
+      }
+    );
   }
-
-
 
   capturaId(id: number){
     console.log(id);
@@ -107,6 +105,9 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.deleteProduto(id).subscribe(
       produtoDeletado => {
         this.produtos = produtoDeletado;
+        this.load();
+      },
+      error => {
         this.load();
       }
     )

@@ -21,7 +21,7 @@
                         <!--Modal Criação Pedido-->
                         <div class="col">
                             <!--Botão de chamada do Modal-->
-                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #6c757d; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
+                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary m-2" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #6c757d; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
                             <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->
                                 <div class="modal-dialog" role="document">
@@ -64,8 +64,7 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save</button>
+                                          <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -102,8 +101,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary float-left" (click)="start()" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)">Finalizar pedido</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save</button>
+                                            <button [disabled]="" #fechaModalDetalheMesa type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -145,8 +143,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button [disabled]="" #fechaModal type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
