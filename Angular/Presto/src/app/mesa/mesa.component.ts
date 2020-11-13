@@ -1,6 +1,6 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MesaService } from './mesaService';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Mesa } from './mesa';
 import { Pedido } from '../pedidos/pedido';
 import { CardapioService } from '../cardapio/cardapio.service';
@@ -30,6 +30,9 @@ export class MesaComponent implements OnInit {
 
   demo = document.querySelector('#demo-id');
 
+  @ViewChild('fechaModalPedido') fechaModalPedido: ElementRef;
+  @ViewChild('fechaModalDetalheMesa') fechaModalDetalheMesa: ElementRef;
+  @ViewChild('fechaModal') fechaModal: ElementRef;
   public minuto = 0;
   public segundo = 0;
 
@@ -59,17 +62,18 @@ export class MesaComponent implements OnInit {
 
   }
   load() {
-    sessionStorage.refresh = true;
-    console.log('sessionStorage', sessionStorage);
-    (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
-        && location.reload();
-    sessionStorage.refresh = false;
+    this.mesaService.getAllMesas().subscribe(
+      mesa => {
+        this.mesas = mesa;
+      }
+    )
   }
 
   criarMesa() {
     this.mesaService.criarMesa(this.mesaForm.value).subscribe(
       mesa1 => {
         console.log(mesa1)
+        this.fechaModal.nativeElement.click();
         this.load();
       }
     )
@@ -107,18 +111,18 @@ export class MesaComponent implements OnInit {
   addProdutoPedido(produto: Produto) {
     this.produtosPedido.push(produto);
     console.log(this.produtosPedido);
-
   }
 
   registarProdutosPedido() {
     this.mesaService.addProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
-        this.mostrarProdutos = 3;
+        this.mostrarProdutos = 1;
         while(this.produtosPedido.length){
           this.produtosPedido.pop();
         }
-
+        this.fechaModalPedido.nativeElement.click();
+        this.load();
       }
     )
   }
@@ -156,7 +160,8 @@ export class MesaComponent implements OnInit {
 
     this.mesaService.tempoMesa(id, tempo).subscribe(
       tempoCadastrado => {this.pedido = tempoCadastrado;
-      this.load();}
+
+      }
     )
 
   }
