@@ -15,11 +15,12 @@
                             <button type="button" class="btn addedit" (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
 
                             <button type="button" class="btn my-1 mr-5 addedit" data-toggle="modal" [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
-                Editar {{produto?.nome}}
-              </button>
+                              Editar {{produto?.nome}}
+                            </button>
 
                             <button type="button" class="btn mr-5 remover" (click)="deletarProduto(produto?.id)">Remover
-                produto</button>
+                              produto
+                            </button>
                         </div>
 
                     </div>
