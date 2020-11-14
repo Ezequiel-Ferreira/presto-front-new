@@ -43,6 +43,6 @@ export class MesaService {
   }
 
   tempoMesa(idPedido: number, tempoIdeal: Date): Observable<any> {
-    return this.http.put<any>(`http://localhost:8080/pedido/addtempo/${idPedido}`, tempoIdeal.toJSON)
+    return this.http.put<Pedido>(`http://localhost:8080/pedido/addtempo/${idPedido}/${tempoIdeal.getTime()}`, true);
   }
 }

@@ -28,13 +28,11 @@ export class MesaComponent implements OnInit {
   produtosPedido: Produto[] = new Array;
   mostrarProdutos: number = 1;
 
-  demo = document.querySelector('#demo-id');
 
-  @ViewChild('fechaModalPedido') fechaModalPedido: ElementRef;
-  @ViewChild('fechaModalDetalheMesa') fechaModalDetalheMesa: ElementRef;
   @ViewChild('fechaModal') fechaModal: ElementRef;
   public minuto = 0;
   public segundo = 0;
+  public date = new Date();
 
   constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService ) { }
 
@@ -51,7 +49,6 @@ export class MesaComponent implements OnInit {
       }
     )
 
-
     this.mesaForm = this.fb.group({
       nome: ['', [Validators.required]]
     })
@@ -59,6 +56,16 @@ export class MesaComponent implements OnInit {
     this.pedidoForm = this.fb.group({
       descricao: ['', [Validators.required]],
     })
+
+    setInterval(() => {
+      this.date = new Date();
+      this.mesaService.getAllMesas().subscribe(
+        mesa => {
+          this.mesas = mesa;
+        }
+      )
+    },30000);
+
 
   }
   loadNovaMesa() {
@@ -125,13 +132,11 @@ export class MesaComponent implements OnInit {
     this.mesaService.addProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
-        this.mostrarProdutos = 1;
+        this.mostrarProdutos = 3;
         while(this.produtosPedido.length){
           this.produtosPedido.pop();
         }
 
-        this.fechaModalPedido.nativeElement.click();
-        this.load();
       }
     )
   }
@@ -163,13 +168,14 @@ export class MesaComponent implements OnInit {
     var tempo = new Date();
 
     var armazenaTempo = now.getMinutes() + somaTempo;
-    console.log(armazenaTempo);
+    console.log(tempo.getTime());
     tempo.setMinutes(armazenaTempo);
-    console.log(tempo);
+    console.log(tempo.getTime());
 
     this.mesaService.tempoMesa(id, tempo).subscribe(
-      tempoCadastrado => {this.pedido = tempoCadastrado;
-
+      pedidoConTempoCadastrado => {
+        this.pedido = pedidoConTempoCadastrado;
+        this.load();
       }
     )
 

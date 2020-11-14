@@ -25,6 +25,7 @@ import { UpdateProdutoComponent } from './produto/update-produto/update-produto.
 import { MesaComponent } from './mesa/mesa.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { CozinhaComponent } from './cozinha/cozinha.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { CozinhaComponent } from './cozinha/cozinha.component';
     MesaComponent,
     ListarUsuarioComponent,
     CozinhaComponent,
+    RelatorioComponent,
   ],
   imports: [
     BrowserModule,

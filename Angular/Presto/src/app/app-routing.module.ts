@@ -1,3 +1,4 @@
+import { RelatorioComponent } from './relatorio/relatorio.component';
 import { MesaComponent } from './mesa/mesa.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: "mesa", component : MesaComponent, canActivate: [GuardRouters]},
   { path: "listarUsuario", component: ListarUsuarioComponent, canActivate:[GuardRouters]},
   { path: "cozinha", component : CozinhaComponent, canActivate: [GuardRouters]},
+  { path: "relatorio", component : RelatorioComponent, canActivate: [GuardRouters]}
 
 ];
 
