@@ -9,6 +9,7 @@ import { GuardRouters } from './guard/guardRouters';
 import { ProdutoComponent } from './produto/produto.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
+import { CozinhaComponent } from './cozinha/cozinha.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path : "produto",  component : ProdutoComponent, canActivate: [GuardRouters]},
   { path : "pedidos" ,  component : PedidosComponent, canActivate: [GuardRouters]},
   { path: "mesa", component : MesaComponent, canActivate: [GuardRouters]},
-  { path: "listarUsuario", component: ListarUsuarioComponent, canActivate:[GuardRouters]}
+  { path: "listarUsuario", component: ListarUsuarioComponent, canActivate:[GuardRouters]},
+  { path: "cozinha", component : CozinhaComponent, canActivate: [GuardRouters]},
 
 ];
 

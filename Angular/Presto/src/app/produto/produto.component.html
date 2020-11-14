@@ -2,26 +2,37 @@
     <div class="row">
         <div class="col-md-4" *ngFor="let produto of produtos">
             <!-- card 1 -->
-            <div class="card card body rounded m-5 bg-white border h-75" style="max-width: 540px;">
+            <div class="card card body rounded m-4 p-2 bg-white border " style="max-width: 540px;">
                 <div class="row no-gutters">
-                    <div class="col-md-4 px-3 my-5">
+                    <div class="col-md-4 pr-2 d-flex align-items-center">
                         <img [src]="'../../assets/imagens/' + produto?.imagem" class="card-img rounded" [alt]="produto.nome">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 bg-white">
                         <!-- card 2 -->
-                        <div class="card-body bg-white m-1">
-                            <h5 class="card-title">{{produto?.nome}}</h5>
-                            <p class="card-text">{{produto?.descricao}}</p>
-                            <button type="button" class="btn addedit" (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
 
-                            <button type="button" class="btn my-1 mr-5 addedit" data-toggle="modal" [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
-                              Editar {{produto?.nome}}
-                            </button>
+                            <h5 class="card-title d-flex justify-content-center border-bottom pb-1">{{produto?.nome}}</h5>
+                            <div class="row">
+                              <div class="col-sm-8">
+                                <p class="card-text">{{produto?.descricao}}</p>
 
-                            <button type="button" class="btn mr-5 remover" (click)="deletarProduto(produto?.id)">Remover
-                              produto
-                            </button>
-                        </div>
+                              </div>
+                              <div class="col-sm-4 d-flex justify-content-end align-items-center">
+                                <p> R$ {{ produto?.valor }}</p>
+                              </div>
+
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                              <button type="button" class="btn p-1 mt-1 mr-1 addedit " (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
+
+                              <button type="button" class="btn p-1 mt-1 mr-1 addedit" data-toggle="modal" [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
+                                Editar {{produto?.nome}}
+                              </button>
+
+                              <button type="button" class="btn p-1 mt-1 remover" (click)="deletarProduto(produto?.id)">Remover
+                                produto
+                              </button>
+                            </div>
 
                     </div>
                 </div>

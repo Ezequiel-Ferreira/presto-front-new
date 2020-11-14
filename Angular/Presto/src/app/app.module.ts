@@ -24,6 +24,7 @@ import { ProdutoCardapioComponent } from './cardapio/produto-cardapio/produto-ca
 import { UpdateProdutoComponent } from './produto/update-produto/update-produto.component';
 import { MesaComponent } from './mesa/mesa.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
+import { CozinhaComponent } from './cozinha/cozinha.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.
     UpdateProdutoComponent,
     MesaComponent,
     ListarUsuarioComponent,
+    CozinhaComponent,
   ],
   imports: [
     BrowserModule,
