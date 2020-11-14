@@ -1,0 +1,20 @@
+<div class="card card body rounded m-4 p-2 bg-white border" *ngFor="let mesa of mesas">
+
+  <div *ngIf="mesa?.pedido !== null">
+    <h5>
+      N° Pedido - {{ mesa.pedido.id}}
+    </h5>
+    <p>
+      ---------- {{mesa?.pedido.descricao}} ----------
+    </p>
+    <div *ngFor="let produto of mesa?.pedido.itensDoPedido">
+      {{produto.nome}}
+    </div>
+    <div>
+      Tempo máximo {{mesa.pedido.maiorTempo}} minutos
+    </div>
+    <button (click)="entreguePedido(mesa.id, mesa.pedido.id)"> Entregue </button>
+  </div>
+
+</div>
+

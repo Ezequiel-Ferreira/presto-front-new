@@ -18,7 +18,7 @@ export class MesaComponent implements OnInit {
   mesas: Mesa[];
   mesaForm: FormGroup;
   mesa: Mesa;
-  mesaNome: string;
+  mesaId: number;
 
   pedido: Pedido;
   pedidoMesa: Pedido;
@@ -61,7 +61,7 @@ export class MesaComponent implements OnInit {
     })
 
   }
-  load() {
+  loadNovaMesa() {
     this.mesaService.getAllMesas().subscribe(
       mesa => {
         this.mesas = mesa;
@@ -69,12 +69,20 @@ export class MesaComponent implements OnInit {
     )
   }
 
+  load() {
+    sessionStorage.refresh = true;
+    console.log('sessionStorage', sessionStorage);
+    (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
+        && location.reload();
+    sessionStorage.refresh = false;
+  }
+
   criarMesa() {
     this.mesaService.criarMesa(this.mesaForm.value).subscribe(
       mesa1 => {
         console.log(mesa1)
         this.fechaModal.nativeElement.click();
-        this.load();
+        this.loadNovaMesa();
       }
     )
   }
@@ -92,13 +100,13 @@ export class MesaComponent implements OnInit {
     }, 1000);
     }
 
-  capturaNomeMesa(nome: string) {
-    console.log(nome);
-    this.mesaNome = nome;
+  capturaIdMesa(id: number) {
+    console.log(id);
+    this.mesaId =id;
   }
 
   addPedidoNaMesa() {
-    this.mesaService.addPedidoMesa(this.mesaNome, this.pedidoForm.value).subscribe(
+    this.mesaService.addPedidoMesa(this.mesaId, this.pedidoForm.value).subscribe(
       pedidoReceive => {
         this.mostrarProdutos = 2
         this.pedido = pedidoReceive
@@ -123,7 +131,7 @@ export class MesaComponent implements OnInit {
         }
 
         this.fechaModalPedido.nativeElement.click();
-
+        this.load();
       }
     )
   }

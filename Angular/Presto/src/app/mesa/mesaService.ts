@@ -21,8 +21,8 @@ export class MesaService {
   criarMesa(mesa : Mesa): Observable<any>{
     return this.http.post<any>("http://localhost:8080/mesa/create/" + this.authService.loggedUser().id , mesa)
   }
-  addPedidoMesa(nome: string, pedido: Pedido): Observable<Pedido>{
-    return this.http.put<Pedido>("http://localhost:8080/mesa/addpedido/" + nome, pedido)
+  addPedidoMesa(id: number, pedido: Pedido): Observable<Pedido>{
+    return this.http.put<Pedido>("http://localhost:8080/mesa/addpedido/" + id, pedido)
   }
 
   // Chamadas para pedidos

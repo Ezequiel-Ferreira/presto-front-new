@@ -21,7 +21,7 @@
                         <!--Modal Criação Pedido-->
                         <div class="col d-flex justify-content-center">
                             <!--Botão de chamada do Modal-->
-                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary m-2" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #007bff; color: white;" (click)="capturaNomeMesa(mesa.nome)">Fazer pedido</button>
+                            <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary m-2" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #007bff; color: white;" (click)="capturaIdMesa(mesa.id)">Fazer pedido</button>
                             <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->
                                 <div class="modal-dialog" role="document">
@@ -45,12 +45,14 @@
 
                                                 <div *ngIf="mostrarProdutos === 2">
                                                     <div *ngFor="let produto of produtosCardapio">
-                                                        <label [for]="produto.nome">{{produto.nome}} <button type="button"
-                                class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)">+</button>
-                            </label>
+                                                        <label [for]="produto.nome">{{produto.nome}} <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button> </label>
                                                     </div>
 
-
+                                                    <div *ngFor="let item of produtosPedido" class="mostrarItensPedido">
+                                                      <p>
+                                                        {{item.nome}} ----------- R$ {{item.valor}}
+                                                      </p>
+                                                    </div>
 
                                                     <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="registarProdutosPedido()">Registrar</button>
                                                 </div>
