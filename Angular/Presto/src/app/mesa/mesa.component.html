@@ -1,22 +1,25 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="card-body bg-light rounded col-md-12 m-5 border">
+        <div class="card-body bg-white rounded col-md-12 m-5 border">
             <div class="row">
 
                 <div class="card-body col-md-2" *ngFor="let mesa of mesas">
                     <div class="card border">
-                        <div class="card-header bg-white"> {{mesa?.nome}} </div>
-                        <div class="card-body bg-success m-2 rounded">
-                            <!-- {{mesa?.status}} -->
-                            <h4>Em andamento</h4>
+                        <div class="card-header bg-white">
+                           <h5>{{mesa?.nome}}</h5>
+                          </div>
+                         <div *ngIf="mesa.pedido === null" class="card-body m-2 bg-info text-white">
+                            <h4 >Sem Pedido</h4>
+                          </div>
 
-                            <!--
-                            <h4 *ngIf="mesa.pedido === null">Sem Pedido</h4>
-                            <h4 *ngIf="mesa.pedido !== null && this.minuto < mesa?.pedido?.tempoIdeal.getDate()" id="demo-id" class="card-title">Em andamento</h4>
-                            <h4 *ngIf="mesa.pedido !== null && this.minuto >= mesa?.pedido?.maiorTempo">Atrasado</h4>
-                            -->
-                        </div>
+                         <div  *ngIf="mesa.pedido !== null && date.getTime() < mesa?.pedido?.tempoIdeal" class="card-body bg-success text-white m-2 rounded">
+                            <h5  id="demo-id" class="card-title">Em andamento</h5>
+                         </div>
+
+                          <div *ngIf="mesa.pedido !== null && date.getTime() >= mesa?.pedido?.tempoIdeal" class="card-body rounded bg-danger text-white">
+                            <h2>Atrasado</h2>
+                          </div>
 
                         <!--Modal Criação Pedido-->
                         <div class="col d-flex justify-content-center">
@@ -45,9 +48,14 @@
 
                                                 <div *ngIf="mostrarProdutos === 2">
                                                     <div *ngFor="let produto of produtosCardapio">
-                                                        <label [for]="produto.nome">{{produto.nome}} <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button> </label>
-                                                    </div>
+                                                      <div class="p-3 mb-2 bg-secondary text-white">
+                                                      <h5>{{produto.nome}}</h5>
+                                                        <p><strong>Ingredientes ou descrição</strong></p>
+                                                         <p> {{produto.descricao}}</p>
 
+                                                          <P>Valor R${{produto.valor}}                                                               <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button></P>
+                                                     </div>
+                                                    </div>
                                                     <div *ngFor="let item of produtosPedido" class="mostrarItensPedido">
                                                       <p>
                                                         {{item.nome}} ----------- R$ {{item.valor}}
@@ -121,7 +129,7 @@
     <!--Modal Criação Mesa-->
     <div class="col">
         <!--Botão de chamada do Modal-->
-        <div type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalNovaMesa">Nova mesa</div>
+        <div type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalNovaMesa" style="color: white;">Nova mesa</div>
         <div class="modal fade" id="modalNovaMesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <!--Modal Mesa-->
             <div class="modal-dialog" role="document">
@@ -150,11 +158,4 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="cronometro">
-        <button type="button" (click)="start()"></button>
-
-        <p>{{minuto}}</p>
-        <p>{{segundo}}</p>
     </div>

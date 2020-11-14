@@ -8,5 +8,5 @@ export interface Pedido {
   mesas: Mesa[];
   itensDoPedido: Produto[];
   maiorTempo : number;
-  tempoIdeal: Date;
+  tempoIdeal:number;
 }
