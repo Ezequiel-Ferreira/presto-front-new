@@ -1,20 +1,49 @@
-<div class="card card body rounded m-4 p-2 bg-white border" *ngFor="let mesa of mesas">
+<div class="container-fluid">
+  <div class="row">
 
-  <div *ngIf="mesa?.pedido !== null">
-    <h5>
-      N° Pedido - {{ mesa.pedido.id}}
-    </h5>
-    <p>
-      ---------- {{mesa?.pedido.descricao}} ----------
-    </p>
-    <div *ngFor="let produto of mesa?.pedido.itensDoPedido">
-      {{produto.nome}}
-    </div>
-    <div>
-      Tempo máximo {{mesa.pedido.maiorTempo}} minutos
-    </div>
-    <button (click)="entreguePedido(mesa.id, mesa.pedido.id)"> Entregue </button>
+      <div class="col-md-6" *ngFor="let mesa of mesas">
+
+        <div class="card card body rounded m-4 p-2 bg-white border" >
+          <div class="row no-gutters">
+
+            <div class=" col-md-12 bg-info rounded">
+              <div class="col-md-12 d-flex justify-content-center rounded-top border-bottom p-2 bg-dark" *ngIf="mesa?.pedido !== null">
+                <h5 class="font-weight-bolder text-uppercase text-white">
+                  Pedido N° {{ mesa.pedido.id}}
+                </h5>
+              </div>
+
+              <div class="col-md-12 d-flex justify-content-start p-2" style="height: 100px;">
+                <div class="col-md-6 d-flex align-items-center justify-content-center pl-5">
+                  <p class="font-weight-bolder text-uppercase">
+                    {{mesa?.pedido.descricao}}
+                  </p>
+                </div>
+                <div class="col-md-6 d-flex align-items-center justify-content-end">
+                  <p class="font-weight-bolder text-uppercase pr-5" *ngFor="let produto of mesa?.pedido.itensDoPedido">
+                    {{produto.nome}}
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-12 d-flex justify-content-center border-top p-2 ">
+                <div class="col-md-6 d-flex align-items-start">
+                  <button type="button" class="btn p-2 ml-5 border-light font-weight-bolder text-uppercase entrega" (click)="entreguePedido(mesa.id, mesa.pedido.id)"> Entregue </button>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center mt-2">
+                  <p class="font-weight-bolder text-uppercase">
+                    Tempo máximo {{mesa.pedido.maiorTempo}} minutos
+                  </p>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
   </div>
-
 </div>
 
