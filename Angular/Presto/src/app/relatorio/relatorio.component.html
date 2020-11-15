@@ -1,13 +1,13 @@
-  <table #exportar id="table" class="table table-hover">
+<div class="p-5">
+  <table class="table table-hover">
     <thead>
-      <tr>
+      <tr class="bg-dark text-white">
         <th scope="col">Código</th>
         <th scope="col">Nome</th>
         <th scope="col">Descrição</th>
         <th scope="col">Quantidade de saida</th>
       </tr>
     </thead>
-
     <tbody *ngFor="let produto of produtos">
       <tr>
         <th scope="row">{{produto?.id}}</th>
@@ -16,5 +16,9 @@
         <td><strong>{{produto?.contador}}</strong></td>
       </tr>
     </tbody>
-    <button (click)="gerarPdf()">Exportar</button>
   </table>
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn border-light exportar"(click)="gerarPdf()">Exportar</button>
+  </div>
+
+</div>

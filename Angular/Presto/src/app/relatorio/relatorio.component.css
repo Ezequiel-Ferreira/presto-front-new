@@ -1,0 +1,27 @@
+.plus {
+  background-color: #DD2D2D;
+  border: none;
+  box-shadow: 2px 2px 2px #888888;
+}
+
+
+/* .customSizeBtn {
+} */
+
+.border {
+  box-shadow: 10px 8px 5px #888888;
+  border: 1px solid #BFBFBF
+}
+
+.exportar {
+  background-color: #dd2d2d;
+  color: white;
+}
+
+.exportar:hover {
+  background-color: #a12323;
+}
+
+.plus:hover {
+  background-color: #a12323;
+}
