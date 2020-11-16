@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Produto } from '../produto/produto';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import { format } from 'path';
 
 @Component({
   selector: 'app-relatorio',
@@ -24,32 +25,27 @@ export class RelatorioComponent implements OnInit {
 
   gerarPdf(){
 
-    var element = document.getElementById('table')
+    var element = document.getElementById('table');
 
     html2canvas(element).then((canvas) =>{
 
-      var imageData = canvas.toDataURL('/image/png')
+    var imageData = canvas.toDataURL('/image/png')
 
-      const doc = new jsPDF();
+    const doc = new jsPDF({
+    orientation : "landscape",
+    unit: "in",
+    format: [10, 5]
+    });
 
-      doc.addImage(imageData, 0, 0, 0, 0);
+   doc.addImage(imageData, 0, 0, 0, 0);
 
-      doc.save("image.pdf");
+        doc.save("Relatorio-presto");
+
     })
 
-    // let doc = new jsPDF();
-    // let specialElementHandedlers = {
-    //   'editor' : function(element, renderer){
-    //     true;
-    //   }
-    // };
-    // let content = this.exportar.nativeElement;
-    // doc.fromHTML(content.innerHTML, 15, 15, {
-    //   'whidth' : 190,
-    //   'elementHandelers': specialElementHandedlers
-    // });
 
-    // doc.save('test-pdf');
+
+
   }
 
 }

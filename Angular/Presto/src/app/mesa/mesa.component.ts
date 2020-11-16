@@ -64,7 +64,7 @@ export class MesaComponent implements OnInit {
           this.mesas = mesa;
         }
       )
-    },30000);
+    },60000);
 
 
   }
