@@ -59,12 +59,7 @@ export class MesaComponent implements OnInit {
 
     setInterval(() => {
       this.date = new Date();
-      this.mesaService.getAllMesas().subscribe(
-        mesa => {
-          this.mesas = mesa;
-        }
-      )
-    },60000);
+    },10000);
 
 
   }

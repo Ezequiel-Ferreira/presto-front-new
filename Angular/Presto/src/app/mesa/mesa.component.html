@@ -32,14 +32,13 @@
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">{{mesa.nome}}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
                                         </div>
                                         <div class="modal-body">
                                             <form [formGroup]="pedidoForm" (ngSubmit)="addPedidoNaMesa()">
                                                 <div class="form-group" *ngIf="mostrarProdutos === 1">
-                                                    <label for="descricao" class="ml-1 mt-3 font-weight-bold">Descricao
-                            pedido:</label>
+                                                    <label for="descricao" class="ml-1 mt-3 font-weight-bold">Descricao pedido:</label>
                                                     <input type="text" class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" placeholder="Descricao" required>
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Registrar</button>
