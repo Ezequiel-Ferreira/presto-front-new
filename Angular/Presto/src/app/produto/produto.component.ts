@@ -1,11 +1,11 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { Produto } from './produto';
 import { ProdutoService } from './produto.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { profile } from 'console';
+
 
 @Component({
   selector: 'app-produto',
@@ -41,6 +41,7 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.produtos().subscribe(
       produtosLista => {
         this.produtos = produtosLista;
+        console.log(produtosLista);
       }
     );
 
@@ -49,6 +50,7 @@ export class ProdutoComponent implements OnInit {
       descricao: ['', [Validators.required]],
       tempo: ['', [Validators.required]],
       valor: ['', Validators.required],
+      quantidadeEstoque:[Number],
       imagem: ['']
     })
 
@@ -65,6 +67,14 @@ export class ProdutoComponent implements OnInit {
     );
   }
 
+  atualizarTodaPagina() {
+    sessionStorage.refresh = true;
+    console.log('sessionStorage', sessionStorage);
+    (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
+        && location.reload();
+    sessionStorage.refresh = false;
+  }
+
   capturaId(id: number){
     console.log(id);
     this.id = id;
@@ -73,31 +83,44 @@ export class ProdutoComponent implements OnInit {
   updateProduto(id: number) {
     // this.produtoService.updateProduto(this.updateProdutoForm.value, nome).subscribe(
     //   produtoAtualizado => {console.log(produtoAtualizado)}
-    console.log(this.updateProdutoForm.value);
     if(this.imageForm.get('profile').value != ''){
       this.formData.append('nome', this.updateProdutoForm.get('nome').value);
       this.formData.append('descricao', this.updateProdutoForm.get('descricao').value);
       this.formData.append('tempo', this.updateProdutoForm.get('tempo').value);
       this.formData.append('valor', this.updateProdutoForm.get('valor').value);
+      this.formData.append('quantidadeEstoque', this.updateProdutoForm.get('quantidadeEstoque').value);
       this.formData.append('imagem', this.updateProdutoForm.get('imagem').value);
       this.formData.append('file', this.imageForm.get('profile').value);
-      this.http.put("http://localhost:8080/produto/update/" + id ,this.formData).subscribe(
-        event => {console.log(event), this.load()});
-    } else if(this.imageForm.get('profile').value === '') {
 
-      this.http.put("http://localhost:8080/produto/updatesemimagem/" + id ,this.updateProdutoForm.value).subscribe(
-        event => {console.log(event), this.load()});
+     this.produtoService.updateProduto(this.formData, id).subscribe(
+       retorno =>{
+        console.log(retorno);
+        this.load();
+       }
+     );
+    }else if(this.imageForm.get('profile').value === ''){
+      this.produtoService.updateProdutoSemImagem(this.updateProdutoForm.value, id).subscribe(
+        retorno =>{
+          console.log(retorno);
+          this.atualizarTodaPagina();
+          this.load();
+        }
+      )
     }
-
   }
 
 
-  addNoCardapio(produto: Produto){
+  addNoCardapio(produto : Produto){
     this.produtoService.adicionarProdutoNocardapio(produto).subscribe(
       produtoadcionado => {
-        this.produtos = produtoadcionado.produtos;
+        this.produto = produtoadcionado;
         this.load();
+      },
+      error =>{
+        console.log(error);
+        alert("Produto já no cardapio");
       }
+
     )
   }
 

@@ -1,8 +1,11 @@
 .page-footer {
     background: #DD2D2D;
-    margin-top: 3%;
+    margin-top: 20%;
+    position: relative;
+
 }
 
 .footer-copyright {
     background: #c02121;
 }
+

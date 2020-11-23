@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { BodyComponent } from './body/body.component';
 import { LoginComponent } from './login/login.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
@@ -33,7 +32,6 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    BodyComponent,
     LoginComponent,
     PedidosComponent,
     CadastroComponent,

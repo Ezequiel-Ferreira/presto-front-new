@@ -8,6 +8,7 @@ export interface Produto {
   tempo: string;
   imagem: string;
   cardapios: Cardapio;
+  retornoDoCardapio_id: number;
   quantidadeEstoque: number;
   contador: number;
 }

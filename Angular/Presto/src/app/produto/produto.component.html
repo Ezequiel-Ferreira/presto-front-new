@@ -14,16 +14,15 @@
                             <div class="row">
                               <div class="col-sm-8">
                                 <p class="card-text">{{produto?.descricao}}</p>
-
                               </div>
                               <div class="col-sm-4 d-flex justify-content-end align-items-center">
-                                <p> R$ {{ produto?.valor }}</p>
+                                <p> R$ <strong>{{ produto?.valor }}</strong></p>
                               </div>
 
                             </div>
 
                             <div class="d-flex justify-content-center">
-                              <button type="button" class="btn p-1 mt-1 mr-1 addedit " (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
+                              <button *ngIf="produto?.retornoDoCardapio_id ===0"  type="button" class="btn p-1 mt-1 mr-1 addedit " (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
 
                               <button type="button" class="btn p-1 mt-1 mr-1 addedit" data-toggle="modal" [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
                                 Editar {{produto?.nome}}
@@ -36,18 +35,7 @@
 
                     </div>
                 </div>
-                <!-- <img class="card-img-top" [src]="produto?.imagem" alt="Card image cap" style="height: 13.1rem;">
-      <div class="card-body">
-        <h5 class="card-title titulo">{{produto?.nome}}</h5>
-      </div>
-      <p>{{produto?.descricao}}</p>
-      <button  type="button"  (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
-      <button  type="button"  (click)="deletarProduto(produto.id)">Remover produto</button>
 
-      <button type="button" class="btn" data-toggle="modal" [attr.data-target]="'#'+produto.tipo"
-        style="background-color: #dd2d2d; color: white;" (click)="capturaNome(produto.nome)" >
-        Editar {{produto?.nome}}
-      </button> -->
 
                 <!-- Modal Edição Produtos-->
                 <div class="modal fade" [attr.id]="'myModal'+produto?.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -80,7 +68,10 @@
                       pronto?</label>
                                         <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo" formControlName="tempo" required>
                                     </div>
-
+                                    <div class="form-group">
+                                      <label for="tempo" class="ml-1 mt-3 font-weight-bold">Digite a quantidade em estoque!</label>
+                                      <input type="number" class="form-control form-control-lg text-center" name="quantidadeEstoque" id="quantidadeEstoque" formControlName="quantidadeEstoque" required>
+                                  </div>
                                     <div class="form-group">
                                         <label for="valor" class="ml-1 mt-3 font-weight-bold">Valor do produto?</label>
                                         <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor" formControlName="valor">
@@ -90,13 +81,6 @@
                                         <label for="imagem" class="ml-1 mt-3 font-weight-bold">Qual o endereço da imagem do produto?</label>
                                         <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem" formControlName="imagem" (change)="onFileChanged($event)">
                                     </div>
-
-                                    <!-- <div class="form-group">
-                  <label for="cardapio" class="ml-1 mt-3 font-weight-bold">Id do cardápio</label>
-                  <input class="form-control form-control-lg text-center" name="cardapios" id="cardapios" formControlName="cardapios" placeholder="../../../assets/imagens/imagem.jpg">
-                </div> -->
-
-
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button>
                                     </div>
@@ -104,7 +88,6 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
