@@ -34,7 +34,7 @@ export class RelatorioComponent implements OnInit {
     const doc = new jsPDF({
     orientation : "landscape",
     unit: "in",
-    format: [10, 5]
+    format: [13, 10]
     });
 
    doc.addImage(imageData, 0, 0, 0, 0);

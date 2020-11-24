@@ -36,6 +36,7 @@ export class CadastroprodutoComponent implements OnInit {
       descricao: ['', [Validators.required]],
       valor : [Number, [Validators.required]],
       tempo: [Number, [Validators.required]],
+      quantidadeEstoque:[Number],
       imagem: ['', [Validators.required]]
     })
 
@@ -73,6 +74,7 @@ export class CadastroprodutoComponent implements OnInit {
     this.formData.append('descricao', this.produtoForm.get('descricao').value);
     this.formData.append('tempo', this.produtoForm.get('tempo').value);
     this.formData.append('valor', this.produtoForm.get('valor').value);
+    this.formData.append('quantidadeEstoque', this.produtoForm.get('quantidadeEstoque').value);
     this.formData.append('imagem', this.produtoForm.get('imagem').value);
     this.formData.append('file', this.imagemForm.get('profile').value);
     this.http.post("http://localhost:8080/produto/create/" + this.authService.loggedUser().id, this.formData).subscribe(

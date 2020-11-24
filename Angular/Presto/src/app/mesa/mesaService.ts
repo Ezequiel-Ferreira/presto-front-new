@@ -27,10 +27,12 @@ export class MesaService {
 
   // Chamadas para pedidos
   criarPedido(pedido: Pedido): Observable<Pedido>{
+
     return this.http.post<Pedido>("http://localhost:8080/pedido/create", pedido)
   }
 
   addProdutosPedido(produtos: Produto[], id: number): Observable<any> {
+
     return this.http.put<any>("http://localhost:8080/pedido/addprodutos/" + id, produtos);
   }
 
