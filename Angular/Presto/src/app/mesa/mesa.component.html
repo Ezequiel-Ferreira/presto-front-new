@@ -27,7 +27,7 @@
                             <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary mb-2" data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id" style="background-color: #007bff; color: white;" (click)="capturaIdMesa(mesa.id)">Fazer pedido</button>
                             <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!--Modal Pedido-->
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-lg"  role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">{{mesa.nome}}</h5>
@@ -36,9 +36,11 @@
                                           </button>
                                         </div>
                                         <div class="modal-body">
+                                          <div class="row">
+                                            <div class="col-sm-6">
+                                              <div class="card-body">
 
-
-                                         <form [formGroup]="pedidoForm" (ngSubmit)="addPedidoNaMesa()">
+                                                <form [formGroup]="pedidoForm" (ngSubmit)="addPedidoNaMesa()">
                                                 <div class="form-group" *ngIf="mostrarProdutos === 1">
                                                     <label for="descricao" class="ml-1 mt-3 font-weight-bold">Descricao pedido:</label>
                                                     <input type="text" class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" placeholder="Descricao" required>
@@ -63,7 +65,7 @@
                                                     </div>
                                                   </div>
 
-
+                                                    <!-- FILTRO COMIDA -->
                                                   <div *ngIf="filtro === 2"  id="mostrar2">
                                                     <div *ngFor="let produto of produtosCardapioComida">
                                                       <div class="p-3 mb-2 bg-secondary text-white">
@@ -76,6 +78,7 @@
                                                     </div>
                                                   </div>
 
+                                                  <!-- FILTRO BEBIDA -->
                                                   <div *ngIf="filtro === 3"  id="mostrar3">
                                                     <div *ngFor="let produto of produtosCardapioBebida">
                                                       <div class="p-3 mb-2 bg-secondary text-white">
@@ -86,25 +89,45 @@
                                                           <P>Valor R${{produto.valor}}                                                               <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button></P>
                                                      </div>
                                                     </div>
-                                                    <div *ngFor="let item of produtosPedido" class="mostrarItensPedido">
-                                                      <p>
-                                                        {{item.nome}} ----------- R$ {{item.valor}}
-                                                      </p>
+
                                                     </div>
-                                                    </div>
+
                                                     <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="registarProdutosPedido()">Registrar</button>
                                                 </div>
 
                                                 <div *ngIf="mostrarProdutos === 3">
+                                                  <div class="p-3 mb-2 bg-secondary text-white">
+                                                    <div *ngFor="let item of pedido?.itensDoPedido" class="mostrarItensPedido">
+                                                        <p>
+                                                          {{item.nome}} ----------- R$ {{item.valor}}
+                                                        </p>
+                                                      </div>
+                                                    </div>
                                                     <label for="">Clique em OK para confirmar os produtos</label>
                                                     <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="getTempo(pedido?.id, pedido?.maiorTempo)">OK</button>
                                                 </div>
                                             </form>
+                                            </div>
+                                      </div>
 
 
+                                      <div class="col-sm-6" *ngIf="mostrarProdutos === 2">
+                                      <div class="card-body">
+                                        <div id="part-pedido-itens">
+                                        <h5>Pedido</h5>
+                                        <div *ngFor="let item of produtosPedido">
+                                          <p>
+                                            {{item.nome}} -------- R$ {{item.valor}} <button id="part-pedido-itens-button" type="button" (click)="removerProdutoPedido(item)"> - </button>
+                                          </p>
                                         </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                                  </div>
+
                                         <div class="modal-footer">
-                                          <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary" data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)">Cancelar o pedido</button>
                                         </div>
                                     </div>
                                 </div>
