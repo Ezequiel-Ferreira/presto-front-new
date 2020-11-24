@@ -11,4 +11,5 @@ export interface Produto {
   retornoDoCardapio_id: number;
   quantidadeEstoque: number;
   contador: number;
+  pedidoQuantidade: number;
 }

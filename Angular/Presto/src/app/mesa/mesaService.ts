@@ -36,6 +36,10 @@ export class MesaService {
     return this.http.put<any>("http://localhost:8080/pedido/addprodutos/" + id, produtos);
   }
 
+  atualizarProdutosPedido(produtos: Produto[], id: number): Observable<any> {
+    return this.http.put<any>("http://localhost:8080/pedido//updateitensdopedido/" + id, produtos);
+  }
+
   pedidoDaMesa(id: number): Observable<any>{
     return this.http.get<Pedido>("http://localhost:8080/mesa/getpedidomesa/" + id)
   }

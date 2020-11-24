@@ -7,7 +7,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./pedidos.component.css']
 })
 export class PedidosComponent implements OnInit {
-
   constructor() { }
 
   pedido: FormGroup;
@@ -15,5 +14,6 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
 
 }

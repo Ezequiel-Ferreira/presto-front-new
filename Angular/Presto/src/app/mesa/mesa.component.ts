@@ -134,9 +134,34 @@ export class MesaComponent implements OnInit {
     console.log(this.produtosPedido);
   }
 
+  removerProdutoPedido(produto: Produto){
+    var i= 0;
+    while(i < this.produtosPedido.length){
+      if(this.produtosPedido[i].id === produto.id){
+        this.produtosPedido.splice(i, 1);
+        i = this.produtosPedido.length;
+      }else{
+        i++;
+      }
+    }
+  }
+
   registarProdutosPedido() {
     console.log("registrar")
     this.mesaService.addProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
+      produtosDoPedio => {
+        this.pedido = produtosDoPedio;
+        this.mostrarProdutos = 3;
+        while(this.produtosPedido.length){
+          this.produtosPedido.pop();
+        }
+
+      }
+    )
+  }
+  alterarProdutosPedido() {
+    console.log("registrar")
+    this.mesaService.atualizarProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
         this.mostrarProdutos = 3;
