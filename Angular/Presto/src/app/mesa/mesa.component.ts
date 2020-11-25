@@ -24,14 +24,19 @@ export class MesaComponent implements OnInit {
   pedidoMesa: Pedido;
   pedidoForm: FormGroup;
 
-  produtosCardapio: Produto[];
+  produtosCardapioGeral: Produto[];
+
+  produtosCardapioComida: Produto[];
+
+  produtosCardapioBebida: Produto[];
   produtosPedido: Produto[] = new Array;
   mostrarProdutos: number = 1;
 
+  filtro =1;
+
 
   @ViewChild('fechaModal') fechaModal: ElementRef;
-  public minuto = 0;
-  public segundo = 0;
+
   public date = new Date();
 
   constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService ) { }
@@ -45,9 +50,20 @@ export class MesaComponent implements OnInit {
 
     this.cardapioService.produtosCardapio().subscribe(
       cardapioRetorno => {
-        this.produtosCardapio = cardapioRetorno;
+        this.produtosCardapioGeral = cardapioRetorno;
       }
     )
+    this.cardapioService.produtoPorTipo("comida").subscribe(
+      produtosLista => {
+        this.produtosCardapioComida = produtosLista;
+      }
+    );
+    this.cardapioService.produtoPorTipo("bebida").subscribe(
+      produtosLista => {
+        this.produtosCardapioBebida = produtosLista;
+      }
+    )
+
 
     this.mesaForm = this.fb.group({
       nome: ['', [Validators.required]]
@@ -59,12 +75,7 @@ export class MesaComponent implements OnInit {
 
     setInterval(() => {
       this.date = new Date();
-      this.mesaService.getAllMesas().subscribe(
-        mesa => {
-          this.mesas = mesa;
-        }
-      )
-    },60000);
+    },10000);
 
 
   }
@@ -94,25 +105,20 @@ export class MesaComponent implements OnInit {
     )
   }
 
-  start() {
-    setInterval(() => {
-      this.segundo += 1;
-      if (this.segundo === 60) {
-        this.segundo = 0;
-        this.minuto += 1;
-        if (this.minuto === 230) {
-          this.minuto = 0;
-        }
-      }
-    }, 1000);
-    }
 
   capturaIdMesa(id: number) {
     console.log(id);
     this.mesaId =id;
   }
 
+
+
+
+
+
+  //------------Pedido--------------
   addPedidoNaMesa() {
+    console.log("addPedidoMesa")
     this.mesaService.addPedidoMesa(this.mesaId, this.pedidoForm.value).subscribe(
       pedidoReceive => {
         this.mostrarProdutos = 2
@@ -128,8 +134,34 @@ export class MesaComponent implements OnInit {
     console.log(this.produtosPedido);
   }
 
+  removerProdutoPedido(produto: Produto){
+    var i= 0;
+    while(i < this.produtosPedido.length){
+      if(this.produtosPedido[i].id === produto.id){
+        this.produtosPedido.splice(i, 1);
+        i = this.produtosPedido.length;
+      }else{
+        i++;
+      }
+    }
+  }
+
   registarProdutosPedido() {
+    console.log("registrar")
     this.mesaService.addProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
+      produtosDoPedio => {
+        this.pedido = produtosDoPedio;
+        this.mostrarProdutos = 3;
+        while(this.produtosPedido.length){
+          this.produtosPedido.pop();
+        }
+
+      }
+    )
+  }
+  alterarProdutosPedido() {
+    console.log("registrar")
+    this.mesaService.atualizarProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
         this.mostrarProdutos = 3;
@@ -180,4 +212,17 @@ export class MesaComponent implements OnInit {
     )
 
   }
+
+   //------------Cardapio--------------
+
+   exibirfiltroGeral(){
+   this.filtro = 1;
+  }
+  exibirfiltroComida(){
+    this.filtro = 2;
+  }
+  exibirfiltroBebida(){
+   this.filtro = 3;
+  }
+
 }

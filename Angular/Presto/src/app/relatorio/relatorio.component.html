@@ -1,3 +1,4 @@
+
 <div class="p-5">
   <table class="table table-hover" id="table" #table>
     <thead>
@@ -6,6 +7,7 @@
         <th scope="col">Nome</th>
         <th scope="col">Descrição</th>
         <th scope="col">Quantidade de saida</th>
+        <th scope="col">Quantidade em estoque</th>
       </tr>
     </thead>
     <tbody *ngFor="let produto of produtos">
@@ -14,6 +16,7 @@
         <td>{{produto?.nome}}</td>
         <td>{{produto?.descricao}}</td>
         <td><strong>{{produto?.contador}}</strong></td>
+        <td><strong>{{produto?.quantidadeEstoque}}</strong></td>
       </tr>
     </tbody>
   </table>

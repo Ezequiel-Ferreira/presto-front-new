@@ -29,8 +29,11 @@ export class ProdutoService {
   //   return this.http.post<Produto>("http://localhost:8080/produto/create", produto, file);
   // }
 
-  updateProduto(produto: Produto, nome: string): Observable<any> {
-    return this.http.put<Produto>("http://localhost:8080/produto/update/" +nome, produto);
+  updateProduto(produto: FormData, id: number ): Observable<any> {
+    return this.http.put<Produto>("http://localhost:8080/produto/update/" +id, produto);
+  }
+  updateProdutoSemImagem(produto: Produto, id: number ): Observable<any> {
+    return this.http.put<Produto>("http://localhost:8080/produto/updatesemimagem/" + id, produto);
   }
 
   deleteProduto(id: Number): Observable<any> {

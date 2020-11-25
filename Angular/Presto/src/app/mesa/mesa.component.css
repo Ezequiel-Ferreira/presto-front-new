@@ -12,3 +12,22 @@
 .btn:hover {
   background-color: salmon;
 }
+
+#produtosDoPedido>  button{
+  background-color: #DD2D2D;
+  padding: 5px;
+  justify-content: center;
+  margin: 10px;
+}
+#part-pedido-itens{
+  color: white;
+  background-color: gray;
+
+}
+
+#part-pedido-itens-button{
+  color: white;
+  background-color: #DD2D2D;
+  border-radius: 5px;
+  text-size-adjust: 14px;
+}
