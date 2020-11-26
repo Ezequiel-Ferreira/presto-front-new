@@ -5,6 +5,7 @@ import { Mesa } from './mesa';
 import { Pedido } from '../pedidos/pedido';
 import { CardapioService } from '../cardapio/cardapio.service';
 import { Produto } from '../produto/produto';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -34,6 +35,8 @@ export class MesaComponent implements OnInit {
 
   filtro =1;
 
+  //Icones
+  faPlus = faPlus;
 
   @ViewChild('fechaModal') fechaModal: ElementRef;
 

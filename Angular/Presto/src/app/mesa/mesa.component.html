@@ -42,38 +42,47 @@
 
                                                 <form [formGroup]="pedidoForm" (ngSubmit)="addPedidoNaMesa()">
                                                 <div class="form-group" *ngIf="mostrarProdutos === 1">
-                                                    <label for="descricao" class="ml-1 mt-3 font-weight-bold">Descricao pedido:</label>
-                                                    <input type="text" class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" placeholder="Descricao" required>
+                                                    <label for="descricao" class="ml-1 mt-3 font-weight-bold"> Descricão do pedido: </label>
+                                                    <input type="text" class="form-control form-control-lg text-center " name="descricao" id="descricao" formControlName="descricao" placeholder="Descricao" required>
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Registrar</button>
                                                     </div>
                                                    </div>
-                                                <div id="produtosDoPedido" *ngIf="mostrarProdutos === 2">
-                                                  <button type="button" id="btn_exibir_geral"  onclick="exibirfiltroGeral()">Geral</button> <button  type="button" id="btn_exibir_comida" (click)="exibirfiltroComida()">Comida</button> <button  type="button" id="btn_exibir_bebida" (click)="exibirfiltroBebida()">Bebida</button>
+                                                <div  *ngIf="mostrarProdutos === 2" >
+                                                  <div class="d-flex justify-content-center mb-2">
+                                                    <button type="button" class="btn btn-secondary mx-2 " id="btn_exibir_geral"  (click)="exibirfiltroGeral()">Geral</button>
+                                                    <button  type="button" class="btn btn-secondary mx-2" id="btn_exibir_comida" (click)="exibirfiltroComida()">Comida</button>
+                                                    <button  type="button" class="btn btn-secondary mx-2" id="btn_exibir_bebida" (click)="exibirfiltroBebida()">Bebida</button>
+                                                  </div>
+
 
 
                                                  <!-- FILTRO GERAL -->
                                                   <div *ngIf="filtro === 1"  id="mostrar1">
                                                   <div  *ngFor="let produto of produtosCardapioGeral">
-                                                      <div class="p-3 mb-2 bg-secondary text-white">
+                                                      <div class="p-3 mb-2 bg-light text-dark rounded">
                                                       <h5>{{produto.nome}}</h5>
                                                         <p><strong>Ingredientes ou descrição</strong></p>
-                                                         <p> {{produto.descricao}}</p>
-
-                                                          <P>Valor R${{produto.valor}}                                                               <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button></P>
+                                                        <p> {{produto.descricao}}</p>
+                                                        <P>Valor R${{produto.valor}} </P>
+                                                          <div type="button" class="btn btn-outline-primary plus btn-sm" (click)="addProdutoPedido(produto)">
+                                                            <fa-icon [icon]="faPlus" style="color: white;"></fa-icon>
+                                                          </div>
                                                      </div>
                                                     </div>
                                                   </div>
 
-                                                    <!-- FILTRO COMIDA -->
+                                                  <!-- FILTRO COMIDA -->
                                                   <div *ngIf="filtro === 2"  id="mostrar2">
                                                     <div *ngFor="let produto of produtosCardapioComida">
-                                                      <div class="p-3 mb-2 bg-secondary text-white">
+                                                      <div class="p-3 mb-2 bg-light text-dark rounded">
                                                       <h5>{{produto.nome}}</h5>
                                                         <p><strong>Ingredientes ou descrição</strong></p>
-                                                         <p> {{produto.descricao}}</p>
-
-                                                          <P>Valor R${{produto.valor}}                                                               <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button></P>
+                                                        <p> {{produto.descricao}}</p>
+                                                          <P>Valor R${{produto.valor}}</P>
+                                                          <div type="button" class="btn btn-outline-primary plus btn-sm" (click)="addProdutoPedido(produto)">
+                                                            <fa-icon [icon]="faPlus" style="color: white;"></fa-icon>
+                                                          </div>
                                                      </div>
                                                     </div>
                                                   </div>
@@ -81,12 +90,14 @@
                                                   <!-- FILTRO BEBIDA -->
                                                   <div *ngIf="filtro === 3"  id="mostrar3">
                                                     <div *ngFor="let produto of produtosCardapioBebida">
-                                                      <div class="p-3 mb-2 bg-secondary text-white">
+                                                      <div class="p-3 mb-2 bg-light text-dark rounded">
                                                       <h5>{{produto.nome}}</h5>
                                                         <p><strong>Ingredientes ou descrição</strong></p>
-                                                         <p> {{produto.descricao}}</p>
-
-                                                          <P>Valor R${{produto.valor}}                                                               <button type="button" class="btn glyphicon glyphicon-plus" (click)="addProdutoPedido(produto)"> + </button></P>
+                                                        <p> {{produto.descricao}}</p>
+                                                          <P>Valor R${{produto.valor}}</P>
+                                                          <div type="button" class="btn btn-outline-primary plus btn-sm" (click)="addProdutoPedido(produto)">
+                                                            <fa-icon [icon]="faPlus" style="color: white;"></fa-icon>
+                                                          </div>
                                                      </div>
                                                     </div>
 
@@ -96,15 +107,19 @@
                                                 </div>
 
                                                 <div *ngIf="mostrarProdutos === 3">
-                                                  <div class="p-3 mb-2 bg-secondary text-white">
+                                                  <div class="p-3 mb-2 bg-light text-dark rounded">
+                                                    <h5>Pedido</h5>
                                                     <div *ngFor="let item of pedido?.itensDoPedido" class="mostrarItensPedido">
                                                         <p>
                                                           {{item.nome}} ----------- R$ {{item.valor}}
                                                         </p>
                                                       </div>
                                                     </div>
-                                                    <label for="">Clique em OK para confirmar os produtos</label>
-                                                    <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="getTempo(pedido?.id, pedido?.maiorTempo)">OK</button>
+                                                    <label for=""> Clique em Confirmar para fazer o pedido. </label>
+                                                    <div>
+                                                      <button type="button" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill" (click)="getTempo(pedido?.id, pedido?.maiorTempo)"> Confirmar </button>
+                                                    </div>
+
                                                 </div>
                                             </form>
                                             </div>
@@ -112,22 +127,22 @@
 
 
                                       <div class="col-sm-6" *ngIf="mostrarProdutos === 2">
-                                      <div class="card-body">
-                                        <div id="part-pedido-itens">
-                                        <h5>Pedido</h5>
-                                        <div *ngFor="let item of produtosPedido">
-                                          <p>
-                                            {{item.nome}} -------- R$ {{item.valor}} <button id="part-pedido-itens-button" type="button" (click)="removerProdutoPedido(item)"> - </button>
-                                          </p>
+                                        <div class="card-body">
+                                          <div id="part-pedido-itens" class="p-3 mt-2 mb-2 bg-light text-dark rounded">
+                                            <h5>Pedido</h5>
+                                            <div *ngFor="let item of produtosPedido" class="d-flex justify-content-end">
+                                              <p>
+                                                {{item.nome}} -------- R$ {{item.valor}} <button id="part-pedido-itens-button" type="button" (click)="removerProdutoPedido(item)"> - </button>
+                                              </p>
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    </div>
                                   </div>
                                   </div>
 
                                         <div class="modal-footer">
-                                          <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary" data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)">Cancelar o pedido</button>
+                                          <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary" data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)"> Fechar </button>
                                         </div>
                                     </div>
                                 </div>
@@ -152,19 +167,23 @@
                                         </div>
 
                                         <div class="modal-body">
-                                            <div *ngFor="let produto of pedidoMesa?.itensDoPedido">
+                                            <div class="p-3 mt-2 mb-2 bg-light text-dark rounded">
+                                              <h5> Itens </h5>
+                                              <div *ngFor="let produto of pedidoMesa?.itensDoPedido">
                                                 <div>
-                                                    <p>{{produto?.nome}}---------------- R${{produto?.valor}}</p>
+                                                  <p>{{produto?.nome}} ---------------- R${{produto?.valor}}</p>
                                                 </div>
+                                              </div>
                                             </div>
+
                                             <div class="total">
-                                                <h2>Valor total do pedido R${{pedidoMesa?.valorTotal}}</h2>
-                                                <p>Tempo maximo para o pedido ser entregue {{pedidoMesa?.maiorTempo}} minutos</p>
+                                                <h2>Valor total do pedido: R${{pedidoMesa?.valorTotal}}</h2>
+                                                <p>Tempo máximo para o pedido ser entregue: {{pedidoMesa?.maiorTempo}} minutos</p>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary float-left" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)">Finalizar pedido</button>
-                                            <button [disabled]="" #fechaModalDetalheMesa type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button [disabled]="" #fechaModalDetalheMesa type="button" class="btn btn-secondary" data-dismiss="modal"> Fechar </button>
                                         </div>
                                     </div>
                                 </div>
@@ -182,13 +201,13 @@
     <!--Modal Criação Mesa-->
     <div class="col">
         <!--Botão de chamada do Modal-->
-        <div type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalNovaMesa" style="color: white;">Nova mesa</div>
+        <div type="button" class="btn btn-outline-primary ml-5" data-toggle="modal" data-target="#modalNovaMesa" style="color: white;">Adicionar mesa</div>
         <div class="modal fade" id="modalNovaMesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <!--Modal Mesa-->
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Nova mesa</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> Adicionar mesa </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -196,11 +215,11 @@
                     <div class="modal-body">
                         <form [formGroup]="mesaForm" (ngSubmit)="criarMesa()">
                             <div class="form-group">
-                                <label for="nome" class="ml-1 mt-3 font-weight-bold">Qual o nome da mesa:</label>
-                                <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome" placeholder="Nome" required>
+                                <label for="nome" class="ml-1 mt-3 font-weight-bold"> Nome da mesa: </label>
+                                <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome" placeholder="Nome da mesa" required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button>
+                                <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill"> Adicionar </button>
                             </div>
                         </form>
 

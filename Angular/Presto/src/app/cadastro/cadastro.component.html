@@ -3,15 +3,15 @@
     <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100 mt-5 border">
       <form  *ngIf="mostrarModalCardapioCriar=== false"  [formGroup]="usuarioForm" (ngSubmit)="inserirUsuario()">
 
-        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <div class="text-center">Endereço de E-mail já cadastrado</div>
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+          <div class="text-center">Erro ao cadastrar usuário. </div>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
-        <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
-          <div class="text-center">Usuário cadastrado com sucesso. Redirecionando para a página de login</div>
+        <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+          <div class="text-center">Usuário cadastrado com sucesso! Redirecionando para a página de login.</div>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -21,20 +21,20 @@
           <label for="email"  class="ml-1 mt-3 font-weight-bold">Digite seu email:</label>
           <input type="text" class="form-control form-control-lg text-center" name="email" id="email" formControlName="email" placeholder="Email" required email>
 
-          <div *ngIf="usuarioForm.get('email').invalid && (usuarioForm.get('email').dirty || usuarioForm.get('email').touched)" class="alert alert-danger" role="alert">
-            <div *ngIf="usuarioForm.get('email').errors.required">Campo E-mail é obrigatório</div>
-            <div *ngIf="!usuarioForm.get('email').errors.valid">Deve ser um e-mail válido</div>
+          <div *ngIf="usuarioForm.get('email').invalid && (usuarioForm.get('email').dirty || usuarioForm.get('email').touched)" class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="usuarioForm.get('email').errors.required">Campo E-mail é obrigatório.</div>
+            <div *ngIf="!usuarioForm.get('email').errors.valid">Deve ser um e-mail válido.</div>
           </div>
 
         </div>
 
         <div class="form-group">
           <label for="confemail"  class="ml-1 mt-3 font-weight-bold">Confirme seu email:</label>
-          <input type="text" class="form-control form-control-lg text-center" name="confemail" id="confemail" formControlName="confemail" placeholder="Confirmação de email" required email>
+          <input type="text" class="form-control form-control-lg text-center" name="confemail" id="confemail" formControlName="confemail" placeholder="Confirmação de e-mail" required email>
 
-          <div *ngIf="usuarioForm.get('confemail').invalid && (usuarioForm.get('confemail').dirty || usuarioForm.get('confemail').touched)" class="alert alert-danger" role="alert">
-            <div *ngIf="usuarioForm.get('confemail').errors.required">Campo de confirmação de e-mail é obrigatório</div>
-            <div *ngIf="!confereEmailValidator()">Os endereços de e-mail devem ser iguais</div>
+          <div *ngIf="usuarioForm.get('confemail').invalid && (usuarioForm.get('confemail').dirty || usuarioForm.get('confemail').touched)" class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="usuarioForm.get('confemail').errors.required">Campo de confirmação de e-mail é obrigatório.</div>
+            <div *ngIf="!confereEmailValidator()">Os endereços de e-mail devem ser iguais.</div>
           </div>
 
         </div>
@@ -45,11 +45,11 @@
         </div> -->
         <div class="form-group">
           <label for="senha" class="ml-1 mt-3 font-weight-bold">Digite sua senha:</label>
-          <input class="form-control form-control-lg text-center" name="senha" id="senha" formControlName="senha" placeholder="Digite sua senha" type="password" required>
+          <input class="form-control form-control-lg text-center" name="senha" id="senha" formControlName="senha" placeholder="Senha" type="password" required>
 
-          <div *ngIf="usuarioForm.get('senha').invalid && (usuarioForm.get('senha').dirty || usuarioForm.get('senha').touched)" class="alert alert-danger" role="alert">
-            <div *ngIf="usuarioForm.get('senha').errors.required">Campo Senha é obrigatório</div>
-            <div *ngIf="!usuarioForm.get('senha').errors.minLength">Sua senha deve ter 8 ou mais caracteres</div>
+          <div *ngIf="usuarioForm.get('senha').invalid && (usuarioForm.get('senha').dirty || usuarioForm.get('senha').touched)" class="alert alert-danger mt-1" role="alert">
+            <div *ngIf="usuarioForm.get('senha').errors.required">Campo Senha é obrigatório.</div>
+            <div *ngIf="!usuarioForm.get('senha').errors.minLength">Sua senha deve ter 8 ou mais caracteres.</div>
           </div>
 
         </div>
@@ -60,9 +60,9 @@
 
         <div class="form-group">
           <label for="dataNascimento" class="ml-1 mt-3 font-weight-bold">Digite sua data de nascimento:</label>
-          <input class="form-control form-control-lg text-center" name="dataNascimento" id="dataNascimento" formControlName="dataNascimento" placeholder="Data" required>
+          <input class="form-control form-control-lg text-center" name="dataNascimento" id="dataNascimento" formControlName="dataNascimento" placeholder="Data de nascimento" required>
         </div>
-        <p>Form Status: {{usuarioForm.status}}</p>
+        <!-- <p>Form Status: {{usuarioForm.status}}</p> -->
 
         <div class="form-group">
           <button type="submit" [disabled]="!usuarioForm.valid" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Cadastrar</button>
@@ -70,7 +70,7 @@
       </form>
       <form *ngIf="mostrarModalCardapioCriar"  [formGroup]="cardapioFrom" (ngSubmit)="criarCardapio()">
         <div class="form-group">
-          <label for="confemail"  class="ml-1 mt-3 font-weight-bold">Digeite o nome do seu cardapio</label>
+          <label for="confemail"  class="ml-1 mt-3 font-weight-bold">Digite o nome do seu cardápio:</label>
           <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome">
           </div>
           <div class="form-group">
