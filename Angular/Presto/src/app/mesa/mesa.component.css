@@ -6,19 +6,15 @@
 
 .border {
   box-shadow: 10px 8px 5px #888888;
-  border: 1px solid #BFBFBF
+  border: 1px solid #BFBFBF;
 }
 
 .btn:hover {
   background-color: salmon;
 }
 
-#produtosDoPedido>  button{
-  background-color: #DD2D2D;
-  padding: 5px;
-  justify-content: center;
-  margin: 10px;
-}
+
+
 #part-pedido-itens{
   color: white;
   background-color: gray;
