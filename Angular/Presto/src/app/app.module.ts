@@ -20,7 +20,6 @@ import { CardapioComponent } from './cardapio/cardapio.component';
 
 import { CadastroprodutoComponent } from './produto/cadastroproduto/cadastroproduto.component';
 import { ProdutoCardapioComponent } from './cardapio/produto-cardapio/produto-cardapio.component';
-import { UpdateProdutoComponent } from './produto/update-produto/update-produto.component';
 import { MesaComponent } from './mesa/mesa.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { CozinhaComponent } from './cozinha/cozinha.component';
@@ -40,7 +39,6 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
     CardapioComponent,
     CadastroprodutoComponent,
     ProdutoCardapioComponent,
-    UpdateProdutoComponent,
     MesaComponent,
     ListarUsuarioComponent,
     CozinhaComponent,

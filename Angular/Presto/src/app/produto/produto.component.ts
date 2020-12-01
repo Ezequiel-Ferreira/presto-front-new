@@ -1,23 +1,24 @@
-
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Produto } from './produto';
 import { ProdutoService } from './produto.service';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Validators,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
 
 @Component({
   selector: 'app-produto',
   templateUrl: './produto.component.html',
-  styleUrls: ['./produto.component.css']
+  styleUrls: ['./produto.component.css'],
 })
 export class ProdutoComponent implements OnInit {
-
-  id:number;
+  id: number;
   updateProdutoForm: FormGroup;
   produtos: Produto[];
-
 
   produtoForm: FormGroup;
   data: any;
@@ -32,50 +33,65 @@ export class ProdutoComponent implements OnInit {
   imageName: any;
   formData = new FormData();
 
+  errorMessage = "";
+  successMessage = "";
+  loading = false;
+
   //Icones
   faPlus = faPlus;
 
-  constructor(private produtoService: ProdutoService, private fb: FormBuilder, private fbImage: FormBuilder, private http:HttpClient) { }
+  constructor(
+    private produtoService: ProdutoService,
+    private fb: FormBuilder,
+    private fbImage: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.produtoService.produtos().subscribe(
-      produtosLista => {
-        this.produtos = produtosLista;
-        console.log(produtosLista);
-      }
-    );
+    this.produtoService.produtos().subscribe((produtosLista) => {
+      this.produtos = produtosLista;
+      console.log(produtosLista);
+    });
 
     this.updateProdutoForm = this.fb.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
+      tempo: [[Validators.required]],
+      valor: [[Validators.required]],
+      quantidadeEstoque: [[Validators.required]],
+      imagem: [''],
+    });
+
+    this.produtoForm = this.fb.group({
+      nome: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      descricao: ['', [Validators.required]],
+      valor: ['', [Validators.required]],
       tempo: ['', [Validators.required]],
-      valor: ['', Validators.required],
-      quantidadeEstoque:[Number],
-      imagem: ['']
-    })
+      quantidadeEstoque: ['', [Validators.required]],
+      imagem: [''],
+    });
 
     this.imageForm = this.fbImage.group({
-      profile: ['']
-    })
+      profile: ['', [Validators.required]],
+    });
   }
 
+
   load() {
-    this.produtoService.produtos().subscribe(
-      produtosLista => {
-        this.produtos = produtosLista;
-      }
-    );
+    this.produtoService.produtos().subscribe((produtosLista) => {
+      this.produtos = produtosLista;
+    });
   }
 
   atualizarTodaPagina() {
     sessionStorage.refresh = true;
     console.log('sessionStorage', sessionStorage);
-    (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
-        && location.reload();
+    (sessionStorage.refresh == 'true' || !sessionStorage.refresh) &&
+      location.reload();
     sessionStorage.refresh = false;
   }
 
-  capturaId(id: number){
+  capturaId(id: number) {
     console.log(id);
     this.id = id;
   }
@@ -83,62 +99,100 @@ export class ProdutoComponent implements OnInit {
   updateProduto(id: number) {
     // this.produtoService.updateProduto(this.updateProdutoForm.value, nome).subscribe(
     //   produtoAtualizado => {console.log(produtoAtualizado)}
-    if(this.imageForm.get('profile').value != ''){
+    if (this.imageForm.get('profile').value != '') {
       this.formData.append('nome', this.updateProdutoForm.get('nome').value);
-      this.formData.append('descricao', this.updateProdutoForm.get('descricao').value);
+      this.formData.append(
+        'descricao',
+        this.updateProdutoForm.get('descricao').value
+      );
       this.formData.append('tempo', this.updateProdutoForm.get('tempo').value);
       this.formData.append('valor', this.updateProdutoForm.get('valor').value);
-      this.formData.append('quantidadeEstoque', this.updateProdutoForm.get('quantidadeEstoque').value);
-      this.formData.append('imagem', this.updateProdutoForm.get('imagem').value);
+      this.formData.append(
+        'quantidadeEstoque',
+        this.updateProdutoForm.get('quantidadeEstoque').value
+      );
+      this.formData.append(
+        'imagem',
+        this.updateProdutoForm.get('imagem').value
+      );
       this.formData.append('file', this.imageForm.get('profile').value);
 
-     this.produtoService.updateProduto(this.formData, id).subscribe(
-       retorno =>{
-        console.log(retorno);
-        this.load();
-       }
-     );
-    }else if(this.imageForm.get('profile').value === ''){
-      this.produtoService.updateProdutoSemImagem(this.updateProdutoForm.value, id).subscribe(
-        retorno =>{
+      this.produtoService
+        .updateProduto(this.formData, id)
+        .subscribe((retorno) => {
+          console.log(retorno);
+          this.load();
+        });
+    } else if (this.imageForm.get('profile').value === '') {
+      this.produtoService
+        .updateProdutoSemImagem(this.updateProdutoForm.value, id)
+        .subscribe((retorno) => {
           console.log(retorno);
           this.atualizarTodaPagina();
           this.load();
-        }
-      )
+        });
     }
   }
 
+  inserirProduto(event: Event) {
+    event.preventDefault();
+    console.log(this.produtoForm.value);
+    this.formData.append('nome', this.produtoForm.get('nome').value);
+    this.formData.append('tipo', this.produtoForm.get('tipo').value);
+    this.formData.append('descricao', this.produtoForm.get('descricao').value);
+    this.formData.append('tempo', this.produtoForm.get('tempo').value);
+    this.formData.append('valor', this.produtoForm.get('valor').value);
+    this.formData.append(
+      'quantidadeEstoque',
+      this.produtoForm.get('quantidadeEstoque').value
+    );
+    this.formData.append('imagem', this.produtoForm.get('imagem').value);
+    this.formData.append('file', this.imageForm.get('profile').value);
 
-  addNoCardapio(produto : Produto){
+    this.produtoService.addProduto(this.formData).subscribe(
+      (response) => {
+        console.log(response + 'response received');
+        this.produto = response;
+        this.successMessage = response;
+        this.load();
+      },
+      (error) => {
+        console.log(`${error} error caught in component`)
+        this.errorMessage = error;
+        this.loading = false;
+      }
+    );
+  }
+
+  addNoCardapio(produto: Produto) {
     this.produtoService.adicionarProdutoNocardapio(produto).subscribe(
-      produtoadcionado => {
+      (produtoadcionado) => {
         this.produto = produtoadcionado;
         this.load();
       },
-      error =>{
+      (error) => {
         console.log(error);
-        alert("Produto já no cardapio");
+        alert('Produto já no cardapio');
       }
-
-    )
+    );
   }
 
   deletarProduto(id: Number) {
     this.produtoService.deleteProduto(id).subscribe(
-      produtoDeletado => {
+      (produtoDeletado) => {
         this.produtos = produtoDeletado;
         this.load();
       },
-      error => {
+      (error) => {
         this.load();
       }
-    )
+    );
   }
 
   public onFileChanged(event) {
     //Select File
     if (event.target.files.length > 0) {
+      event.preventDefault();
       const file = event.target.files[0];
       this.imageForm.get('profile').setValue(file);
     }
@@ -151,7 +205,6 @@ export class ProdutoComponent implements OnInit {
   //     this.imageForm.get('profile').setValue(file);
   //   }
   // }
-
 
   // uploadarImage(file: File) {
   //   this.produtoService.uploadImage(file).subscribe(

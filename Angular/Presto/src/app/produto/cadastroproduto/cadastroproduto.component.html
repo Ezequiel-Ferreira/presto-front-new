@@ -1,55 +1,63 @@
 <form [formGroup]="produtoForm" (ngSubmit)="inserirProduto()">
 
-    <div class="form-group">
-        <label for="nome" class="ml-1 mt-3 font-weight-bold"> Nome do produto: </label>
-        <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome" placeholder="Coca-cola" required>
+  <div class="form-group">
+    <label for="nome" class="ml-1 mt-3 font-weight-bold"> Nome do produto: </label>
+    <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome"
+      placeholder="Coca-cola" required>
 
-    </div>
+  </div>
 
-    <p><strong> Tipo do produto: </strong></p>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipo" id="tipo1" value="comida" formControlName="tipo" checked>
-        <label class="form-check-label" for="tipo1">
+  <p><strong> Tipo do produto: </strong></p>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="tipo" id="tipo1" value="comida" formControlName="tipo" checked
+      required>
+    <label class="form-check-label" for="tipo1">
       Comida
     </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipo" id="tipo2" value="bebida" formControlName="tipo">
-        <label class="form-check-label" for="tipo2">
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="tipo" id="tipo2" value="bebida" formControlName="tipo">
+    <label class="form-check-label" for="tipo2">
       Bebida
     </label>
-    </div>
-
-
-    <div class="form-group">
-        <label for="descricao" class="ml-1 mt-3 font-weight-bold"> Descrição do produto: </label>
-        <input class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" placeholder="Ex: Coca Cola 2l" required>
-    </div>
-
-    <div class="form-group">
-      <label for="tempo" class="ml-1 mt-3 font-weight-bold"> Tempo de preparo do produto: </label>
-      <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo" formControlName="tempo" placeholder="15" required>
   </div>
 
 
-    <div class="form-group">
-      <label for="valor" class="ml-1 mt-3 font-weight-bold"> Preço do produto: </label>
-      <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor" formControlName="valor" placeholder="15">
+  <div class="form-group">
+    <label for="descricao" class="ml-1 mt-3 font-weight-bold"> Descrição do produto: </label>
+    <input class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao"
+      placeholder="Ex: Coca Cola 2l" required>
+  </div>
+
+  <div class="form-group">
+    <label for="tempo" class="ml-1 mt-3 font-weight-bold"> Tempo de preparo do produto: </label>
+    <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo"
+      formControlName="tempo" placeholder="15" required>
+  </div>
+
+
+  <div class="form-group">
+    <label for="valor" class="ml-1 mt-3 font-weight-bold"> Preço do produto: </label>
+    <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor"
+      formControlName="valor" placeholder="15" required>
   </div>
 
   <div class="form-group">
     <label for="tempo" class="ml-1 mt-3 font-weight-bold"> Quantidade em estoque: </label>
-    <input type="number" class="form-control form-control-lg text-center" name="quantidadeEstoque" id="quantidadeEstoque" formControlName="quantidadeEstoque" placeholder="15"required>
-</div>
-    <form [formGroup]="imagemForm">
-        <div class="form-group">
-            <label for="imagem" class="ml-1 mt-3 font-weight-bold"> Adicionar imagem do produto: </label>
-            <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem" formControlName="imagem" (change)="onFileChanged($event)" required>
-        </div>
-    </form>
-
+    <input type="number" class="form-control form-control-lg text-center" name="quantidadeEstoque"
+      id="quantidadeEstoque" formControlName="quantidadeEstoque" placeholder="15" required>
+  </div>
+  <form [formGroup]="imagemForm">
     <div class="form-group">
-        <!-- <button type="submit" [disabled]="!produtoForm.valid" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button> -->
-        <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill"> Cadastrar </button>
+      <label for="imagem" class="ml-1 mt-3 font-weight-bold"> Adicionar imagem do produto: </label>
+      <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem"
+        formControlName="imagem" (change)="onFileChanged($event)" required>
     </div>
+  </form>
+
+  <div class="form-group">
+    <!-- <button type="submit" [disabled]="!produtoForm.valid" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button> -->
+    <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill"> Cadastrar
+    </button>
+  </div>
 </form>
