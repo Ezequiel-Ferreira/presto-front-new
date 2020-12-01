@@ -1,7 +1,7 @@
 .plus {
-    background-color: #DD2D2D;
-    border: none;
-    box-shadow: 2px 2px 2px #888888;
+  background-color: #DD2D2D;
+  border: none;
+  box-shadow: 2px 2px 2px #888888;
 }
 
 
@@ -9,28 +9,40 @@
 } */
 
 .border {
-    box-shadow: 10px 8px 5px #888888;
-    border: 1px solid #BFBFBF
+  box-shadow: 10px 8px 5px #888888;
+  border: 1px solid #BFBFBF
 }
 
 .remover {
-    background-color: #dd2d2d;
-    color: white;
+  background-color: #dd2d2d;
+  color: white;
 }
 
 .remover:hover {
-    background-color: #a12323;
+  background-color: #a12323;
 }
 
 .addedit {
-    background-color: #6c757d;
-    color: white;
+  background-color: #6c757d;
+  color: white;
 }
 
 .addedit:hover {
-    background-color: #474a4d;
+  background-color: #474a4d;
 }
 
 .plus:hover {
-    background-color: #a12323;
+  background-color: #a12323;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

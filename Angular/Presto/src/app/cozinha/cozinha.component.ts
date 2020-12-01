@@ -13,6 +13,8 @@ export class CozinhaComponent implements OnInit {
 
   mesas: Mesa[];
 
+  public date = new Date();
+
 
   ngOnInit(): void {
     this.mesaService.getAllMesas().subscribe(
@@ -20,9 +22,14 @@ export class CozinhaComponent implements OnInit {
         this.mesas = mesas;
       }
     )
+
+    setInterval(() => {
+      this.date = new Date();
+    }, 1000)
+
   }
 
-  load( ) {
+  load() {
     this.mesaService.getAllMesas().subscribe(
       mesas => {
         this.mesas = mesas;

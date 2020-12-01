@@ -27,7 +27,7 @@ export class CadastroprodutoComponent implements OnInit {
   imageName: any;
   formData = new FormData();
 
-  constructor(private fb: FormBuilder, private prod: ProdutoService, private authService : AuthService , private fbImagem: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private prod: ProdutoService, private authService : AuthService , private fbImagem: FormBuilder) { }
 
   ngOnInit(): void {
     this.produtoForm = this.fb.group({
@@ -77,8 +77,19 @@ export class CadastroprodutoComponent implements OnInit {
     this.formData.append('quantidadeEstoque', this.produtoForm.get('quantidadeEstoque').value);
     this.formData.append('imagem', this.produtoForm.get('imagem').value);
     this.formData.append('file', this.imagemForm.get('profile').value);
-    this.http.post("http://localhost:8080/produto/create/" + this.authService.loggedUser().id, this.formData).subscribe(
-      event => {console.log(event), this.atualizar()});
+
+    // this.prod.addProduto(this.formData, this.authService.loggedUser().id).subscribe(
+    //   (response) => {
+
+
+    //     console.log(response + 'response received');
+    //     this.atualizar();
+
+    //   }
+    // )
+
+    // this.http.post("http://localhost:8080/produto/create/" + this.authService.loggedUser().id, this.formData).subscribe(
+    //   event => {console.log(event), this.atualizar()});
   }
 
   // uploadarImage(file: File) {

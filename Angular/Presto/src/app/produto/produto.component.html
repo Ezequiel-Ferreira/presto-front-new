@@ -1,125 +1,249 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4" *ngFor="let produto of produtos">
-            <!-- card 1 -->
-            <div class="card card body rounded m-4 p-2 bg-white border " style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4 pr-2 d-flex align-items-center">
-                        <img [src]="'../../assets/imagens/' + produto?.imagem" class="card-img rounded" [alt]="produto.nome">
-                    </div>
-                    <div class="col-md-8 bg-white">
-                        <!-- card 2 -->
+  <div class="row">
+    <div class="col-md-4" *ngFor="let produto of produtos">
+      <!-- card 1 -->
+      <div class="card card body rounded m-4 p-2 bg-white border " style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-4 pr-2 d-flex align-items-center">
+            <img [src]="'../../assets/imagens/' + produto?.imagem" class="card-img rounded" [alt]="produto.nome">
+          </div>
+          <div class="col-md-8 bg-white">
+            <!-- card 2 -->
 
-                            <h5 class="card-title d-flex justify-content-center border-bottom pb-1">{{produto?.nome}}</h5>
-                            <div class="row">
-                              <div class="col-sm-8">
-                                <p class="card-text">{{produto?.descricao}}</p>
-                              </div>
-                              <div class="col-sm-4 d-flex justify-content-end align-items-center">
-                                <p> R$ <strong>{{ produto?.valor }}</strong></p>
-                              </div>
+            <h5 class="card-title d-flex justify-content-center border-bottom pb-1">{{produto?.nome}}</h5>
+            <div class="row">
+              <div class="col-sm-8">
+                <p class="card-text">{{produto?.descricao}}</p>
+              </div>
+              <div class="col-sm-4 d-flex justify-content-end align-items-center">
+                <p> R$ <strong>{{ produto?.valor }}</strong></p>
+              </div>
 
-                            </div>
+            </div>
 
-                            <div class="d-flex justify-content-center">
-                              <button *ngIf="produto?.retornoDoCardapio_id ===0"  type="button" class="btn p-1 mt-1 mr-1 addedit " (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
+            <div class="d-flex justify-content-center">
+              <button *ngIf="produto?.retornoDoCardapio_id ===0" type="button" class="btn p-1 mt-1 mr-1 addedit "
+                (click)="addNoCardapio(produto)">Adicionar ao Cardapio</button>
 
-                              <button type="button" class="btn p-1 mt-1 mr-1 addedit" data-toggle="modal" [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
-                                Editar {{produto?.nome}}
-                              </button>
+              <button type="button" class="btn p-1 mt-1 mr-1 addedit" data-toggle="modal"
+                [attr.data-target]="'#myModal'+produto?.id" (click)="capturaId(produto?.id)">
+                Editar {{produto?.nome}}
+              </button>
 
-                              <button type="button" class="btn p-1 mt-1 remover" (click)="deletarProduto(produto?.id)">Remover
-                                produto
-                              </button>
-                            </div>
+              <button type="button" class="btn p-1 mt-1 remover" (click)="deletarProduto(produto?.id)">Remover
+                produto
+              </button>
+            </div>
 
-                    </div>
-                </div>
+          </div>
+        </div>
 
 
-                <!-- Modal Edição Produtos-->
-                <div class="modal fade" [attr.id]="'myModal'+produto?.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">{{produto?.nome}}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- Modal Edição Produtos-->
+        <div class="modal fade" [attr.id]="'myModal'+produto?.id" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{produto?.nome}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                            </div>
-                            <div class="modal-body">
-                                <form [formGroup]="updateProdutoForm" (ngSubmit)="updateProduto(id)">
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="updateProdutoForm" (ngSubmit)="updateProduto(id)">
 
-                                    <div class="form-group">
-                                        <label for="nome" class="ml-1 mt-3 font-weight-bold">Qual o nome do produto:</label>
-                                        <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome" required>
+                  <div class="form-group">
+                    <label for="nome" class="ml-1 mt-3 font-weight-bold">Qual o nome do produto:</label>
+                    <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome"
+                      formControlName="nome" required>
 
-                                    </div>
+                  </div>
 
 
-                                    <div class="form-group">
-                                        <label for="descricao" class="ml-1 mt-3 font-weight-bold">Adicione uma descrição para o
+                  <div class="form-group">
+                    <label for="descricao" class="ml-1 mt-3 font-weight-bold">Adicione uma descrição para o
                       produto:</label>
-                                        <input class="form-control form-control-lg text-center" name="descricao" id="descricao" formControlName="descricao" required>
+                    <input class="form-control form-control-lg text-center" name="descricao" id="descricao"
+                      formControlName="descricao" required>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tempo" class="ml-1 mt-3 font-weight-bold">Em quantos minutos o produto estará
+                  </div>
+                  <div class="form-group">
+                    <label for="tempo" class="ml-1 mt-3 font-weight-bold">Em quantos minutos o produto estará
                       pronto?</label>
-                                        <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo" formControlName="tempo" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="tempo" class="ml-1 mt-3 font-weight-bold">Digite a quantidade em estoque!</label>
-                                      <input type="number" class="form-control form-control-lg text-center" name="quantidadeEstoque" id="quantidadeEstoque" formControlName="quantidadeEstoque" required>
-                                  </div>
-                                    <div class="form-group">
-                                        <label for="valor" class="ml-1 mt-3 font-weight-bold">Valor do produto?</label>
-                                        <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor" formControlName="valor">
-                                    </div>
+                    <input type="number" class="form-control form-control-lg text-center" name="tempo" id="tempo"
+                      formControlName="tempo" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="tempo" class="ml-1 mt-3 font-weight-bold">Digite a quantidade em estoque!</label>
+                    <input type="number" class="form-control form-control-lg text-center" name="quantidadeEstoque"
+                      id="quantidadeEstoque" formControlName="quantidadeEstoque" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="valor" class="ml-1 mt-3 font-weight-bold">Valor do produto?</label>
+                    <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor"
+                      formControlName="valor">
+                  </div>
 
-                                    <div class="form-group">
-                                        <label for="imagem" class="ml-1 mt-3 font-weight-bold">Qual o endereço da imagem do produto?</label>
-                                        <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem" formControlName="imagem" (change)="onFileChanged($event)">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  <div class="form-group">
+                    <label for="imagem" class="ml-1 mt-3 font-weight-bold">Qual o endereço da imagem do produto?</label>
+                    <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem"
+                      formControlName="imagem" (change)="onFileChanged($event)">
+                  </div>
+                  <div class="form-group">
+                    <button type="submit"
+                      class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!--Modal Adicionar Produto-->
-        <div class="col-md-4 text-center d-flex h-100 justify-content-center align-self-center">
-            <div type="button" class="btn btn-outline-primary plus" data-toggle="modal" data-target="#modalNovoProduto">
-                <fa-icon [icon]="faPlus" style="color: white;"></fa-icon>
-            </div>
-        </div>
-        <div class="modal fade" id="modalNovoProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--Modal Adicionar Produto-->
+    <div class="col-md-4 text-center d-flex h-100 justify-content-center align-self-center">
+      <div type="button" class="btn btn-outline-primary plus" data-toggle="modal" data-target="#modalNovoProduto">
+        <fa-icon [icon]="faPlus" style="color: white;"></fa-icon>
+      </div>
+    </div>
+    <div class="modal fade" id="modalNovoProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
 
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> Cadastrar produto </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"> Cadastrar produto </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-                    </div>
-                    <div class="modal-body">
-                        <app-cadastroproduto></app-cadastroproduto>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Fechar </button>
-                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                    </div>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="produtoForm" (ngSubmit)="inserirProduto($event)">
+
+              <div class="form-group">
+                <label for="nome" class="ml-1 mt-3 font-weight-bold"> Nome do produto: </label>
+                <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome"
+                  formControlName="nome" placeholder="Coca-cola" required>
+
+                <div
+                  *ngIf="produtoForm.get('nome').invalid && (produtoForm.get('nome').dirty || produtoForm.get('nome').touched)"
+                  class="alert alert-danger mt-1" role="alert">
+                  <div *ngIf="produtoForm.get('nome').errors.required">Campo nome é obrigatório.</div>
                 </div>
-            </div>
+
+              </div>
+
+              <p><strong> Tipo do produto: </strong></p>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo" id="tipo1" value="comida"
+                  formControlName="tipo" required>
+                <label class="form-check-label" for="tipo1">
+                  Comida
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo" id="tipo2" value="bebida"
+                  formControlName="tipo">
+                <label class="form-check-label" for="tipo2">
+                  Bebida
+                </label>
+              </div>
+
+
+              <div class="form-group">
+                <label for="descricao" class="ml-1 mt-3 font-weight-bold"> Descrição do produto: </label>
+                <input class="form-control form-control-lg text-center" name="descricao" id="descricao"
+                  formControlName="descricao" placeholder="Ex: Coca Cola 2l" required>
+
+                <div
+                  *ngIf="produtoForm.get('descricao').invalid && (produtoForm.get('descricao').dirty || produtoForm.get('descricao').touched)"
+                  class="alert alert-danger mt-1" role="alert">
+                  <div *ngIf="produtoForm.get('descricao').errors.required">Campo descricao é obrigatório.</div>
+                </div>
+
+              </div>
+
+              <div class="form-group form-row">
+                <label for="tempo" class="ml-1 mt-3 font-weight-bold form-row"> Tempo de preparo do produto em minutos:
+                </label>
+                <input type="number" class="form-control form-control-lg text-center col-6" name="tempo" id="tempo"
+                  formControlName="tempo" placeholder="15" required>
+                <div class="col mt-2"><strong>Minutos</strong></div>
+
+                <div
+                  *ngIf="produtoForm.get('tempo').invalid && (produtoForm.get('tempo').dirty || produtoForm.get('tempo').touched)"
+                  class="alert alert-danger mt-1" role="alert">
+                  <div *ngIf="produtoForm.get('tempo').errors.required">Campo tempo é obrigatório.</div>
+                </div>
+
+
+
+              </div>
+
+
+              <div class="form-group">
+                <label for="valor" class="ml-1 mt-3 font-weight-bold"> Preço do produto: </label>
+                <input type="number" class="form-control form-control-lg text-center" name="valor" id="valor"
+                  formControlName="valor" placeholder="15" required>
+
+                <div
+                  *ngIf="produtoForm.get('valor').invalid && (produtoForm.get('valor').dirty || produtoForm.get('valor').touched)"
+                  class="alert alert-danger mt-1" role="alert">
+                  <div *ngIf="produtoForm.get('valor').errors.required">Campo preço é obrigatório.</div>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label for="tempo" class="ml-1 mt-3 font-weight-bold"> Quantidade em estoque: </label>
+                <input type="number" class="form-control form-control-lg text-center" name="quantidadeEstoque"
+                  id="quantidadeEstoque" formControlName="quantidadeEstoque" placeholder="15" required>
+
+                <div
+                  *ngIf="produtoForm.get('quantidadeEstoque').invalid && (produtoForm.get('quantidadeEstoque').dirty || produtoForm.get('quantidadeEstoque').touched)"
+                  class="alert alert-danger mt-1" role="alert">
+                  <div *ngIf="produtoForm.get('quantidadeEstoque').errors.required">Campo quantidade é obrigatório.
+                  </div>
+                </div>
+
+              </div>
+
+              <form [formGroup]="imageForm">
+                <div class="form-group">
+                  <label for="imagem" class="ml-1 mt-3 font-weight-bold"> Adicionar imagem do produto: </label>
+                  <input type="file" class="form-control form-control-lg text-center" name="imagem" id="imagem"
+                    formControlName="profile" (change)="onFileChanged($event)" required>
+
+                  <div
+                    *ngIf="imageForm.get('profile').invalid && (imageForm.get('profile').dirty || imageForm.get('profile').touched)"
+                    class="alert alert-danger mt-1" role="alert">
+                    <div *ngIf="imageForm.get('profile').errors.required">Imagem é obrigatória.</div>
+                  </div>
+
+                </div>
+              </form>
+
+              <div class="form-group">
+                <!-- <button type="submit" [disabled]="!produtoForm.valid" class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Registrar</button> -->
+                <button type="submit" [disabled]="!produtoForm.valid || !imageForm.valid"
+                  class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">
+                  Cadastrar
+                </button>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Fechar </button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
