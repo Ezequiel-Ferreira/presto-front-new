@@ -1,3 +1,4 @@
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Component, OnInit } from '@angular/core';
 import { Mesa } from '../mesa/mesa';
 import { MesaService } from '../mesa/mesaService';
@@ -17,20 +18,38 @@ export class CozinhaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.mesaService.getAllMesas().subscribe(
+    this.mesaService.getMesaByTime().subscribe(
       mesas => {
+        console.log(mesas)
         this.mesas = mesas;
       }
     )
+    // this.mesaService.getAllMesas().subscribe(
+    //   mesas => {
+    //     console.log(mesas)
+    //     this.mesas = mesas;
+    //   }
+    // )
 
     setInterval(() => {
       this.date = new Date();
-    }, 1000)
+    }, 1000);
+
+    setInterval(() => {
+      this.mesaService.timerPedido().subscribe(
+        retornoTimer => {
+          // console.log(retornoTimer);
+          this.mesas = retornoTimer;
+        }
+      )
+    }, 60000);
 
   }
 
+
+
   load() {
-    this.mesaService.getAllMesas().subscribe(
+    this.mesaService.getMesaByTime().subscribe(
       mesas => {
         this.mesas = mesas;
       }
@@ -39,10 +58,10 @@ export class CozinhaComponent implements OnInit {
 
   entreguePedido(idMesa: number, idPedido: number) {
     this.mesaService.removePedidoMesa(idMesa, idPedido).subscribe(
-      entrega => {
-
+      (entrega) => {
+        this.load();
       },
-      error => {
+      (error) => {
         this.load();
       }
     )

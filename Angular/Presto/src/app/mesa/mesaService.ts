@@ -68,10 +68,22 @@ export class MesaService {
     );
   }
 
-  tempoMesa(idPedido: number, tempoIdeal: Date): Observable<any> {
+  tempoMesa(idPedido: number, tempoIdeal: Date, now: Date): Observable<any> {
     return this.http.put<Pedido>(
-      `http://localhost:8080/pedido/addtempo/${idPedido}/${tempoIdeal.getTime()}`,
+      `http://localhost:8080/pedido/addtempo/${idPedido}/${tempoIdeal.getTime()}/${now.getTime()}`,
       true
     );
+  }
+
+  getMesaByTime(): Observable<any> {
+    return this.http.get<Mesa[]>(
+      `http://localhost:8080/mesa/mesasbytime/${this.authService.loggedUser().id}`
+    )
+  }
+
+  timerPedido(): Observable<any> {
+    return this.http.put<Mesa[]>(
+      `http://localhost:8080/mesa/diminuirtempo/${this.authService.loggedUser().id}`, true
+    )
   }
 }
