@@ -33,7 +33,7 @@ export class MesaComponent implements OnInit {
   produtosPedido: Produto[] = new Array;
   mostrarProdutos: number = 1;
 
-  filtro =1;
+  filtro = 1;
 
   //Icones
   faPlus = faPlus;
@@ -42,7 +42,7 @@ export class MesaComponent implements OnInit {
 
   public date = new Date();
 
-  constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService ) { }
+  constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService) { }
 
   ngOnInit(): void {
     this.mesaService.getAllMesas().subscribe(
@@ -78,7 +78,7 @@ export class MesaComponent implements OnInit {
 
     setInterval(() => {
       this.date = new Date();
-    },10000);
+    }, 10000);
 
 
   }
@@ -94,7 +94,7 @@ export class MesaComponent implements OnInit {
     sessionStorage.refresh = true;
     console.log('sessionStorage', sessionStorage);
     (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
-        && location.reload();
+      && location.reload();
     sessionStorage.refresh = false;
   }
 
@@ -111,7 +111,7 @@ export class MesaComponent implements OnInit {
 
   capturaIdMesa(id: number) {
     console.log(id);
-    this.mesaId =id;
+    this.mesaId = id;
   }
 
 
@@ -137,13 +137,13 @@ export class MesaComponent implements OnInit {
     console.log(this.produtosPedido);
   }
 
-  removerProdutoPedido(produto: Produto){
-    var i= 0;
-    while(i < this.produtosPedido.length){
-      if(this.produtosPedido[i].id === produto.id){
+  removerProdutoPedido(produto: Produto) {
+    var i = 0;
+    while (i < this.produtosPedido.length) {
+      if (this.produtosPedido[i].id === produto.id) {
         this.produtosPedido.splice(i, 1);
         i = this.produtosPedido.length;
-      }else{
+      } else {
         i++;
       }
     }
@@ -155,7 +155,7 @@ export class MesaComponent implements OnInit {
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
         this.mostrarProdutos = 3;
-        while(this.produtosPedido.length){
+        while (this.produtosPedido.length) {
           this.produtosPedido.pop();
         }
 
@@ -168,7 +168,7 @@ export class MesaComponent implements OnInit {
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
         this.mostrarProdutos = 3;
-        while(this.produtosPedido.length){
+        while (this.produtosPedido.length) {
           this.produtosPedido.pop();
         }
 
@@ -176,7 +176,7 @@ export class MesaComponent implements OnInit {
     )
   }
 
-  pedidoDaMesa(id : number){
+  pedidoDaMesa(id: number) {
     this.mesaService.pedidoDaMesa(id).subscribe(
       pedido => {
         this.pedidoMesa = pedido;
@@ -189,7 +189,7 @@ export class MesaComponent implements OnInit {
     this.mesaService.removePedidoMesa(idMesa, idPedido).subscribe(
       pedidoRemovido => {
         console.log(pedidoRemovido);
-    },
+      },
       error => {
         console.log(error)
         this.load();
@@ -198,7 +198,7 @@ export class MesaComponent implements OnInit {
     )
   }
 
-  getTempo(id: number ,somaTempo: number) {
+  getTempo(id: number, somaTempo: number) {
     var now = new Date();
     var tempo = new Date();
 
@@ -207,7 +207,7 @@ export class MesaComponent implements OnInit {
     tempo.setMinutes(armazenaTempo);
     console.log(tempo.getTime());
 
-    this.mesaService.tempoMesa(id, tempo).subscribe(
+    this.mesaService.tempoMesa(id, tempo, now).subscribe(
       pedidoConTempoCadastrado => {
         this.pedido = pedidoConTempoCadastrado;
         this.load();
@@ -216,16 +216,16 @@ export class MesaComponent implements OnInit {
 
   }
 
-   //------------Cardapio--------------
+  //------------Cardapio--------------
 
-   exibirfiltroGeral(){
-   this.filtro = 1;
+  exibirfiltroGeral() {
+    this.filtro = 1;
   }
-  exibirfiltroComida(){
+  exibirfiltroComida() {
     this.filtro = 2;
   }
-  exibirfiltroBebida(){
-   this.filtro = 3;
+  exibirfiltroBebida() {
+    this.filtro = 3;
   }
 
 }
