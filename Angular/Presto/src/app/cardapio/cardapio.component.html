@@ -8,6 +8,9 @@
     <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroBebida()"
       style="font-size: 32px;">Bebida</button>
 
+      <div class="seach">
+        <input type="text" (input)="this.nome=$event.target.value" (input)="buscar()"/>
+      </div>
   </div>
 
   <div class="row">

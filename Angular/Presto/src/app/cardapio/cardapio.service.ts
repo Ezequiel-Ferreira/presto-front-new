@@ -27,6 +27,10 @@ export class CardapioService {
     return this.http.get<Cardapio>(`http://localhost:8080/cardapio/getprodutoscardapio/${this.authService.loggedUser().id}`);
   }
 
+  produtosPorNomeCardapio(nome: String) : Observable<any>{
+    return this.http.get<Produto[]>(`http://localhost:8080/cardapio/produtoscardapiobyname/${this.authService.loggedUser().id}/${nome}`);
+  }
+
 
   // produtoPorId(id: number): Observable<Produto> {
   //   return this.http.get<Produto>(`http://localhost:8080/produto/${id}`)

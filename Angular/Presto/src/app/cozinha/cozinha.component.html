@@ -27,8 +27,11 @@
             </div>
 
             <div>
-              <span>
+              <span *ngIf="mesa?.pedido.maiorTempo>0" >
                 Faltam: {{mesa?.pedido.maiorTempo}} minutos;
+              </span>
+              <span id="tempo-esgotado" *ngIf="mesa?.pedido.maiorTempo===0" >
+                Tempo esgotado!
               </span>
             </div>
 

@@ -27,9 +27,10 @@ export class ProdutoCardapioComponent implements OnInit {
     console.log("ts", produto.nome);
     this.cardapioService.removeProduto(produto).subscribe(
       removeProduto => {
-        console.log(removeProduto);
         this.load();
+
       }
+
     );
   }
 
