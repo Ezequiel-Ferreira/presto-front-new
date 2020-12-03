@@ -1,10 +1,11 @@
+import { Pedido } from './../pedidos/pedido';
 import { AuthService } from './../authService/authservice.service';
 import { Mesa } from './mesa';
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pedido } from '../pedidos/pedido';
+
 import { Produto } from '../produto/produto';
 
 @Injectable({
@@ -26,10 +27,10 @@ export class MesaService {
       mesa
     );
   }
-  addPedidoMesa(id: number, pedido: Pedido): Observable<Pedido> {
+  addPedidoMesa(id: number): Observable<Pedido> {
     return this.http.put<Pedido>(
-      'http://localhost:8080/mesa/addpedido/' + id,
-      pedido
+      'http://localhost:8080/mesa/createpedido/' + id,
+      true
     );
   }
 
@@ -68,10 +69,10 @@ export class MesaService {
     );
   }
 
-  tempoMesa(idPedido: number, tempoIdeal: Date, now: Date): Observable<any> {
+  tempoMesa(idPedido: number, tempoIdeal: Date, now: Date, pedido: Pedido): Observable<any> {
     return this.http.put<Pedido>(
       `http://localhost:8080/pedido/addtempo/${idPedido}/${tempoIdeal.getTime()}/${now.getTime()}`,
-      true
+      pedido
     );
   }
 
