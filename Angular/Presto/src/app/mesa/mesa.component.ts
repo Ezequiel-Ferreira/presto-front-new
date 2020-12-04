@@ -110,7 +110,7 @@ export class MesaComponent implements OnInit {
 
 
   capturaIdMesa(id: number) {
-    console.log(id);
+
     this.mesaId = id;
   }
 
@@ -121,8 +121,8 @@ export class MesaComponent implements OnInit {
 
   //------------Pedido--------------
   addPedidoNaMesa() {
-    console.log("addPedidoMesa")
-    this.mesaService.addPedidoMesa(this.mesaId, this.pedidoForm.value).subscribe(
+
+    this.mesaService.addPedidoMesa(this.mesaId).subscribe(
       pedidoReceive => {
         this.mostrarProdutos = 2
         this.pedido = pedidoReceive
@@ -131,6 +131,7 @@ export class MesaComponent implements OnInit {
 
     )
   }
+
 
   addProdutoPedido(produto: Produto) {
     this.produtosPedido.push(produto);
@@ -189,6 +190,7 @@ export class MesaComponent implements OnInit {
     this.mesaService.removePedidoMesa(idMesa, idPedido).subscribe(
       pedidoRemovido => {
         console.log(pedidoRemovido);
+        this.load();
       },
       error => {
         console.log(error)
@@ -207,7 +209,7 @@ export class MesaComponent implements OnInit {
     tempo.setMinutes(armazenaTempo);
     console.log(tempo.getTime());
 
-    this.mesaService.tempoMesa(id, tempo, now).subscribe(
+    this.mesaService.tempoMesa(id, tempo, now, this.pedidoForm.value).subscribe(
       pedidoConTempoCadastrado => {
         this.pedido = pedidoConTempoCadastrado;
         this.load();

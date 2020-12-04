@@ -24,12 +24,7 @@ export class CozinhaComponent implements OnInit {
         this.mesas = mesas;
       }
     )
-    // this.mesaService.getAllMesas().subscribe(
-    //   mesas => {
-    //     console.log(mesas)
-    //     this.mesas = mesas;
-    //   }
-    // )
+
 
     setInterval(() => {
       this.date = new Date();
@@ -39,7 +34,7 @@ export class CozinhaComponent implements OnInit {
       this.mesaService.timerPedido().subscribe(
         retornoTimer => {
           // console.log(retornoTimer);
-          this.mesas = retornoTimer;
+          this.load();
         }
       )
     }, 60000);

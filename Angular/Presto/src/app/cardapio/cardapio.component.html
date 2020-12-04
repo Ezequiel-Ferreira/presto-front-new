@@ -1,12 +1,18 @@
 <div class="container-fluid">
-  <div class="h1 d-flex justify-content-center mt-3 col-sm-12">
 
+  <div class="h1 d-flex justify-content-center mt-3 col-sm-6 justify-content-around">
+    <div class="mb-2 bg-white">
+      <input class="col-xs-2 rounded-pill " style="max-width:300px; max-height: 40px; font-size: medium;" type="text" (input)="this.nome=$event.target.value" (input)="buscar()" placeholder="Buscar Produto por nome"/>
+    </div>
+
+    <div class="">
     <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroGeral()"
       style="font-size: 32px;">Geral</button>
     <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroComida()"
       style="font-size: 32px;">Comida</button>
     <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroBebida()"
       style="font-size: 32px;">Bebida</button>
+  </div>
 
   </div>
 

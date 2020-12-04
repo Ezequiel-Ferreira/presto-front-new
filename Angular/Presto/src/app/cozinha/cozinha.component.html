@@ -4,7 +4,7 @@
       <div class="card card body rounded m-5 bg-white border p-5" *ngIf="mesa?.pedido !== null">
 
         <div class="d-flex flex-column">
-          <h4 class="card-title titulo text-center">{{mesa?.nome}}</h4>
+          <h4 class="card-title titulo text-center">{{mesa?.pedido.nome}}</h4>
         </div>
 
         <div class="p-3" *ngIf="mesa?.pedido.tempoIdeal >= date.getTime()">
@@ -18,17 +18,20 @@
         <div class="card-body bg-white m-1 ">
 
           <div class="d-flex flex-column">
-            <h5 class="mb-4 pb-4 border-bottom border-black text-center" style="font-size: 32px">
-              {{mesa?.pedido.descricao}}</h5>
-
+            <h5 class="mb-4 pb-4 border-bottom border-black text-center" style="font-size: 20px"> Observações
+             </h5>
+              <p style="font-size: 18px;">{{mesa?.pedido.descricao}}</p>
+              <h5 class="mb-4 pb-4 border-bottom border-black text-center" style="font-size: 26;">Itens do pedido</h5>
             <div *ngFor="let items of mesa?.pedido.itensDoPedido">
-              <p class="card-text border-bottom pb-2" style="font-size: 20px">{{items.nome}}</p>
-
+              <p class="card-text border-bottom pb-2" style="font-size: 24px">{{items.nome}}</p>
             </div>
 
             <div>
-              <span>
+              <span *ngIf="mesa?.pedido.maiorTempo>0" >
                 Faltam: {{mesa?.pedido.maiorTempo}} minutos;
+              </span>
+              <span id="tempo-esgotado" *ngIf="mesa?.pedido.maiorTempo===0" >
+                Tempo esgotado!
               </span>
             </div>
 

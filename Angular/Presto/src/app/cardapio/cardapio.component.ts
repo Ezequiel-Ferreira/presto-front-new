@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from './../usuario/usuario';
 import { Component, OnInit } from '@angular/core';
 import { Produto } from '../produto/produto';
@@ -13,14 +14,16 @@ export class CardapioComponent implements OnInit {
 
   produtos: Produto[];
   cardapio: Cardapio;
-  constructor(private cardapioService: CardapioService) { }
+  nome: String;
+  constructor(private cardapioService: CardapioService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.cardapioService.produtosCardapio().subscribe(
       produtos => {
         this.produtos = produtos;
       }
-    )
+    );
+
   }
 
 
@@ -45,6 +48,19 @@ export class CardapioComponent implements OnInit {
       }
     );
   }
-
-
+  buscar(){
+    if(this.nome === null || this.nome === ''){
+      this.cardapioService.produtosCardapio().subscribe(
+        produtos => {
+          this.produtos = produtos;
+        }
+      );
+    }else if(this.nome !== null && this.nome !== ''){
+    this.cardapioService.produtosPorNomeCardapio(this.nome).subscribe(
+      response =>{
+        this.produtos = response;
+      }
+    );
+  }
+  }
 }

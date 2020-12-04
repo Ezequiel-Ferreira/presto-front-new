@@ -28,7 +28,7 @@
               <!--Botão de chamada do Modal-->
               <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary mb-2"
                 data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id"
-                style="background-color: #007bff; color: white;" (click)="capturaIdMesa(mesa.id)">Fazer pedido</button>
+                style="background-color: #007bff; color: white;" (click)="capturaIdMesa(mesa.id)" >Fazer pedido</button>
               <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <!--Modal Pedido-->
@@ -45,25 +45,20 @@
                         <div class="col-sm-6">
                           <div class="card-body">
 
-                            <form [formGroup]="pedidoForm" (ngSubmit)="addPedidoNaMesa()">
+                            <form [formGroup]="pedidoForm" (ngSubmit)="getTempo(pedido?.id, pedido?.maiorTempo)">
+
                               <div class="form-group" *ngIf="mostrarProdutos === 1">
-                                <label for="descricao" class="ml-1 mt-3 font-weight-bold"> Descricão do pedido: </label>
-                                <input type="text" class="form-control form-control-lg text-center " name="descricao"
-                                  id="descricao" formControlName="descricao" placeholder="Descricao" required>
-
-                                <div
-                                  *ngIf="pedidoForm.get('descricao').invalid && (pedidoForm.get('descricao').dirty || pedidoForm.get('descricao').touched)"
-                                  class="alert alert-danger mt-1" role="alert">
-                                  <div *ngIf="pedidoForm.get('descricao').errors.required">Campo descrição é
-                                    obrigatório.</div>
-                                </div>
-
+                                <label for="descricao" class="ml-1 mt-3 font-weight-bold" style="font-size: 20px;">Deseja fazer o pedido click em continuar</label>
                                 <div class="form-group">
-                                  <button type="submit" [disabled]="!pedidoForm.valid"
-                                    class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Registrar</button>
+                                  <button type="button" (click)="addPedidoNaMesa()"
+                                    class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Continuar</button>
                                 </div>
 
                               </div>
+
+
+
+
                               <div *ngIf="mostrarProdutos === 2">
                                 <div class="d-flex justify-content-center mb-2">
                                   <button type="button" class="btn btn-secondary mx-2 " id="btn_exibir_geral"
@@ -83,6 +78,7 @@
                                       <h5>{{produto.nome}}</h5>
                                       <p><strong>Ingredientes ou descrição</strong></p>
                                       <p> {{produto.descricao}}</p>
+                                      <p> Essa é a quantidade {{produto.quantidadeEstoque}} em estoque, fique atento!</p>
                                       <P>Valor R${{produto.valor}} </P>
                                       <div type="button" class="btn btn-outline-primary plus btn-sm"
                                         (click)="addProdutoPedido(produto)">
@@ -99,6 +95,7 @@
                                       <h5>{{produto.nome}}</h5>
                                       <p><strong>Ingredientes ou descrição</strong></p>
                                       <p> {{produto.descricao}}</p>
+                                      <p> Essa é a quantidade {{produto.quantidadeEstoque}} em estoque, fique atento!</p>
                                       <P>Valor R${{produto.valor}}</P>
                                       <div type="button" class="btn btn-outline-primary plus btn-sm"
                                         (click)="addProdutoPedido(produto)">
@@ -115,6 +112,7 @@
                                       <h5>{{produto.nome}}</h5>
                                       <p><strong>Ingredientes ou descrição</strong></p>
                                       <p> {{produto.descricao}}</p>
+                                      <p> Essa é a quantidade {{produto.quantidadeEstoque}} em estoque, fique atento!</p>
                                       <P>Valor R${{produto.valor}}</P>
                                       <div type="button" class="btn btn-outline-primary plus btn-sm"
                                         (click)="addProdutoPedido(produto)">
@@ -143,11 +141,15 @@
                                     </p>
                                   </div>
                                 </div>
-                                <label for=""> Clique em Confirmar para fazer o pedido. </label>
-                                <div>
-                                  <button type="button"
-                                    class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill"
-                                    (click)="getTempo(pedido?.id, pedido?.maiorTempo)"> Confirmar </button>
+
+
+
+                                <label for="descricao" class="ml-1 mt-3 font-weight-bold">Faça a sua observação</label>
+                                <input type="text" class="form-control form-control-lg text-center " name="descricao"
+                                  id="descricao" formControlName="descricao" placeholder="Descricao" required>
+                                <div class="form-group">
+                                  <button type="submit"  [disabled]="!pedidoForm.valid"
+                                    class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Confirmar o Pedido</button>
                                 </div>
 
                               </div>
@@ -173,8 +175,8 @@
                     </div>
 
                     <div class="modal-footer">
-                      <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary"
-                        data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)"> Fechar </button>
+                      <button  #fechaModalPedido type="button" class="btn btn-secondary"
+                        data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedido.id)">Cancelar</button>
                     </div>
                   </div>
                 </div>
@@ -196,7 +198,7 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">{{pedidoMesa?.descricao}}</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">{{pedidoMesa?.nome}}</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -209,6 +211,10 @@
                           <div>
                             <p>{{produto?.nome}} ---------------- R${{produto?.valor}}</p>
                           </div>
+                        </div>
+                        <div>
+                          <h5>Observações</h5>
+                          <p>{{pedidoMesa?.descricao}}</p>
                         </div>
                       </div>
 
