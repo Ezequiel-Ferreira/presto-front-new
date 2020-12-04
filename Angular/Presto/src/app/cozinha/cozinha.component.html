@@ -18,13 +18,12 @@
         <div class="card-body bg-white m-1 ">
 
           <div class="d-flex flex-column">
-            <h5 class="mb-4 pb-4 border-bottom border-black text-center" style="font-size: 32px"> Observações
+            <h5 class="mb-4 pb-4 border-bottom border-black text-center" style="font-size: 20px"> Observações
              </h5>
-              <p> {{mesa?.pedido.descricao}}</p>
-
+              <p style="font-size: 18px;">{{mesa?.pedido.descricao}}</p>
+              <h5 class="mb-4 pb-4 border-bottom border-black text-center" style="font-size: 26;">Itens do pedido</h5>
             <div *ngFor="let items of mesa?.pedido.itensDoPedido">
-              <p class="card-text border-bottom pb-2" style="font-size: 20px">{{items.nome}}</p>
-
+              <p class="card-text border-bottom pb-2" style="font-size: 24px">{{items.nome}}</p>
             </div>
 
             <div>

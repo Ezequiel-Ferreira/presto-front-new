@@ -45,10 +45,10 @@
                         <div class="col-sm-6">
                           <div class="card-body">
 
-                            <form [formGroup]="pedidoForm" (ngSubmit)="getTempo()">
+                            <form [formGroup]="pedidoForm" (ngSubmit)="getTempo(pedido?.id, pedido?.maiorTempo)">
 
                               <div class="form-group" *ngIf="mostrarProdutos === 1">
-                                <label for="descricao" class="ml-1 mt-3 font-weight-bold">Click para continuar</label>
+                                <label for="descricao" class="ml-1 mt-3 font-weight-bold" style="font-size: 20px;">Deseja fazer o pedido click em continuar</label>
                                 <div class="form-group">
                                   <button type="button" (click)="addPedidoNaMesa()"
                                     class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Continuar</button>
@@ -148,7 +148,7 @@
                                 <input type="text" class="form-control form-control-lg text-center " name="descricao"
                                   id="descricao" formControlName="descricao" placeholder="Descricao" required>
                                 <div class="form-group">
-                                  <button type="submit" (click)="getTempo(pedido?.id, pedido?.maiorTempo)" [disabled]="!pedidoForm.valid"
+                                  <button type="submit"  [disabled]="!pedidoForm.valid"
                                     class="btn btn-secondary btn-lg d-block mx-auto mt-2 customSizeBtn rounded-pill">Confirmar o Pedido</button>
                                 </div>
 
@@ -175,8 +175,8 @@
                     </div>
 
                     <div class="modal-footer">
-                      <button [disabled]="" #fechaModalPedido type="button" class="btn btn-secondary"
-                        data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedidoMesa.id)"> Fechar </button>
+                      <button  #fechaModalPedido type="button" class="btn btn-secondary"
+                        data-dismiss="modal" (click)="removePedidoDaMesa(mesa.id, pedido.id)">Cancelar</button>
                     </div>
                   </div>
                 </div>

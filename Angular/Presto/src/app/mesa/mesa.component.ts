@@ -190,6 +190,7 @@ export class MesaComponent implements OnInit {
     this.mesaService.removePedidoMesa(idMesa, idPedido).subscribe(
       pedidoRemovido => {
         console.log(pedidoRemovido);
+        this.load();
       },
       error => {
         console.log(error)
