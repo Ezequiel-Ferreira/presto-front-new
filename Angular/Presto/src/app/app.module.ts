@@ -1,4 +1,4 @@
-import { CardapioService } from './cardapio/cardapio.service';
+import { BaseApi } from './base-apis';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -43,6 +43,7 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
     ListarUsuarioComponent,
     CozinhaComponent,
     RelatorioComponent,
+    BaseApi
   ],
   imports: [
     BrowserModule,

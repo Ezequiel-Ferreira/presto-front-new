@@ -1,3 +1,4 @@
+import { BaseApi } from './../base-apis';
 import { Usuario } from '../usuario/usuario';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -8,15 +9,17 @@ import { map }from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends BaseApi {
   mostrarMenuEmitter = new EventEmitter<Boolean>()
   usuarioAutenticado: boolean = false
   retornoSenha: boolean = true
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    super();
+  }
 
   login(email: string, senha: string): Observable<any> {
-    return this.http.get<any>('http://localhost:8080/usuario/getemail/' + email)
+    return this.http.get<any>(this.URL_BASE + '/usuario/getemail/' + email)
       .pipe(
         map(usuario => {
           if(usuario.senha == senha) {
