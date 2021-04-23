@@ -5,5 +5,4 @@ export class Usuario {
   confemail: String;
   senha : String;
   dataNascimento: String;
-
 }
