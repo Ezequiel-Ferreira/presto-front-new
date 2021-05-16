@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Produto } from '../produto/produto';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
-import { format } from 'path';
 
 @Component({
   selector: 'app-relatorio',
@@ -13,7 +12,7 @@ import { format } from 'path';
 export class RelatorioComponent implements OnInit {
   constructor(private produtoService: ProdutoService) { }
 
-  @ViewChild("exportar") exportar : ElementRef;
+  @ViewChild("exportar") exportar: ElementRef;
   produtos: Produto[];
   ngOnInit(): void {
     this.produtoService.produtos().subscribe(
@@ -23,23 +22,23 @@ export class RelatorioComponent implements OnInit {
     )
   }
 
-  gerarPdf(){
+  gerarPdf() {
 
     var element = document.getElementById('table');
 
-    html2canvas(element).then((canvas) =>{
+    html2canvas(element).then((canvas) => {
 
-    var imageData = canvas.toDataURL('/image/png')
+      var imageData = canvas.toDataURL('/image/png')
 
-    const doc = new jsPDF({
-    orientation : "landscape",
-    unit: "in",
-    format: [18, 10]
-    });
+      const doc = new jsPDF({
+        orientation: "landscape",
+        unit: "in",
+        format: [18, 10]
+      });
 
-   doc.addImage(imageData, 0, 0, 0, 0);
+      doc.addImage(imageData, 0, 0, 0, 0);
 
-        doc.save("Relatorio-presto");
+      doc.save("Relatorio-presto");
 
     })
 

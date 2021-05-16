@@ -2,6 +2,7 @@ import { BaseApi } from './base-apis';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { JwtHelperService } from '@auth0/angular-jwt'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,8 @@ import { MesaComponent } from './mesa/mesa.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { CozinhaComponent } from './cozinha/cozinha.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
-
+import { AuthService } from './authService/authservice.service';
+import { StorageService } from './storageService/storage.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,6 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
     ListarUsuarioComponent,
     CozinhaComponent,
     RelatorioComponent,
-    BaseApi
   ],
   imports: [
     BrowserModule,
@@ -51,10 +52,14 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
-    GuardRouters
+    GuardRouters,
+    JwtHelperService,
+    AuthService,
+    StorageService,
+
   ],
   bootstrap: [AppComponent]
 })

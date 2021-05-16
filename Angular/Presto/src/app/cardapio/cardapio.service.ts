@@ -19,19 +19,19 @@ export class CardapioService extends BaseApi {
     return this.http.get<Produto[]>(`${this.URL_BASE}/produto/produtos`);
   }
 
-  criarCardapio(cardapio : Cardapio, id : number){
+  criarCardapio(cardapio: Cardapio, id: number) {
     return this.http.post<Cardapio>(`${this.URL_BASE}/cardapio/create/${id}`, cardapio);
   }
 
-  cardapio() : Observable<any>{
-    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getbyid/${this.authService.loggedUser().id}`);
+  cardapio(): Observable<any> {
+    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getbyid/${this.authService.loggedUser()}`);
   }
-  produtosCardapio() : Observable<any>{
-    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getprodutoscardapio/${this.authService.loggedUser().id}`);
+  produtosCardapio(): Observable<any> {
+    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getprodutoscardapio/${this.authService.loggedUser()}`);
   }
 
-  produtosPorNomeCardapio(nome: String) : Observable<any>{
-    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/produtoscardapiobyname/${this.authService.loggedUser().id}/${nome}`);
+  produtosPorNomeCardapio(nome: String): Observable<any> {
+    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/produtoscardapiobyname/${this.authService.loggedUser()}/${nome}`);
   }
 
 
@@ -40,15 +40,15 @@ export class CardapioService extends BaseApi {
   // }
 
   produtoPorTipo(tipo: string): Observable<Produto[]> {
-    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/getfiltro/${this.authService.loggedUser().id}/${tipo}`);
+    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/getfiltro/${this.authService.loggedUser()}/${tipo}`);
   }
 
-  addProdutoNoCardapio(nome : String, produto : Produto){
-     return this.http.put(`${this.URL_BASE}/cardapio/addproduto/${nome}`, produto);
+  addProdutoNoCardapio(nome: String, produto: Produto) {
+    return this.http.put(`${this.URL_BASE}/cardapio/addproduto/${nome}`, produto);
   }
 
-  removeProduto(produto: Produto ): Observable<any> {
+  removeProduto(produto: Produto): Observable<any> {
     console.log("service", produto.nome);
-    return this.http.put<any>(`${this.URL_BASE}/cardapio/remove/${this.authService.loggedUser().id}`, produto);
+    return this.http.put<any>(`${this.URL_BASE}/cardapio/remove/${this.authService.loggedUser()}`, produto);
   }
 }
