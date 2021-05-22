@@ -92,7 +92,6 @@ export class MesaComponent implements OnInit {
 
   load() {
     sessionStorage.refresh = true;
-    console.log('sessionStorage', sessionStorage);
     (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
       && location.reload();
     sessionStorage.refresh = false;
@@ -101,7 +100,6 @@ export class MesaComponent implements OnInit {
   criarMesa() {
     this.mesaService.criarMesa(this.mesaForm.value).subscribe(
       mesa1 => {
-        console.log(mesa1)
         this.fechaModal.nativeElement.click();
         this.loadNovaMesa();
       }
@@ -126,7 +124,6 @@ export class MesaComponent implements OnInit {
       pedidoReceive => {
         this.mostrarProdutos = 2
         this.pedido = pedidoReceive
-        console.log(pedidoReceive)
       }
 
     )
@@ -135,7 +132,6 @@ export class MesaComponent implements OnInit {
 
   addProdutoPedido(produto: Produto) {
     this.produtosPedido.push(produto);
-    console.log(this.produtosPedido);
   }
 
   removerProdutoPedido(produto: Produto) {
@@ -151,7 +147,6 @@ export class MesaComponent implements OnInit {
   }
 
   registarProdutosPedido() {
-    console.log("registrar")
     this.mesaService.addProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
@@ -164,7 +159,6 @@ export class MesaComponent implements OnInit {
     )
   }
   alterarProdutosPedido() {
-    console.log("registrar")
     this.mesaService.atualizarProdutosPedido(this.produtosPedido, this.pedido.id).subscribe(
       produtosDoPedio => {
         this.pedido = produtosDoPedio;
@@ -181,7 +175,6 @@ export class MesaComponent implements OnInit {
     this.mesaService.pedidoDaMesa(id).subscribe(
       pedido => {
         this.pedidoMesa = pedido;
-        console.log(this.pedidoMesa);
       }
     )
   }
@@ -189,11 +182,9 @@ export class MesaComponent implements OnInit {
   removePedidoDaMesa(idMesa: number, idPedido: number) {
     this.mesaService.removePedidoMesa(idMesa, idPedido).subscribe(
       pedidoRemovido => {
-        console.log(pedidoRemovido);
         this.load();
       },
       error => {
-        console.log(error)
         this.load();
       }
 
@@ -205,9 +196,7 @@ export class MesaComponent implements OnInit {
     var tempo = new Date();
 
     var armazenaTempo = now.getMinutes() + somaTempo;
-    console.log(tempo.getTime());
     tempo.setMinutes(armazenaTempo);
-    console.log(tempo.getTime());
 
     this.mesaService.tempoMesa(id, tempo, now, this.pedidoForm.value).subscribe(
       pedidoConTempoCadastrado => {

@@ -27,7 +27,7 @@ export class CadastroComponent implements OnInit {
 
   loading = false;
 
-  mostrarModalCardapioCriar : boolean = false;
+  mostrarModalCardapioCriar: boolean = false;
 
   constructor(private fb: FormBuilder, private fbCardapio: FormBuilder, private cardapioService: CardapioService, private us: UsuarioService, private route: Router) { }
 
@@ -41,28 +41,20 @@ export class CadastroComponent implements OnInit {
     });
 
     this.cardapioFrom = this.fbCardapio.group({
-      nome:['']
+      nome: ['']
     })
 
 
   }
 
-  // inserir() {
-  //   console.log(this.usuarioForm.value);
-  //   this.us.insert(this.usuarioForm.value);
-  // }
-
-
   inserirUsuario() {
     this.us.addUsuario(this.usuarioForm.value).subscribe(
       (response) => {
-        console.log('response received')
         this.usuario = response;
         this.successMessage = response;
         this.mostrarModalCardapioCriar = true;
       },
       (error) => {
-        console.log('error caught in component')
         this.errorMessage = error;
         this.loading = false;
       }
@@ -74,20 +66,18 @@ export class CadastroComponent implements OnInit {
     this.us = this.data;
   }
 
-  criarCardapio(){
-    console.log(this.cardapioFrom.value);
+  criarCardapio() {
     this.cardapioService.criarCardapio(this.cardapioFrom.value, this.usuario.id).subscribe(
       response => {
-        console.log(response);
-        this.mostrarModalCardapioCriar  = false;
+        this.mostrarModalCardapioCriar = false;
         setTimeout(() => { this.route.navigate(['/login']); }, 1000)
       }
     )
   }
 
-  confereEmailValidator(email){
+  confereEmailValidator(email) {
     if (this.usuarioForm.value.email === this.usuarioForm.value.confemail) {
-        return true;
+      return true;
     }
     return false;
   }

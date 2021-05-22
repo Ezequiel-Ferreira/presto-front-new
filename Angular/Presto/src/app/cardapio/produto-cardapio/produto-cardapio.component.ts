@@ -17,21 +17,16 @@ export class ProdutoCardapioComponent implements OnInit {
   }
   load() {
     sessionStorage.refresh = true;
-    console.log('sessionStorage', sessionStorage);
     (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
-        && location.reload();
+      && location.reload();
     sessionStorage.refresh = false;
   }
 
-  removerProdutoDoCardapio(produto : Produto) {
-    console.log("ts", produto.nome);
+  removerProdutoDoCardapio(produto: Produto) {
     this.cardapioService.removeProduto(produto).subscribe(
       removeProduto => {
         this.load();
-
       }
-
     );
   }
-
 }

@@ -27,16 +27,16 @@ export class CadastroprodutoComponent implements OnInit {
   imageName: any;
   formData = new FormData();
 
-  constructor(private fb: FormBuilder, private prod: ProdutoService, private authService : AuthService , private fbImagem: FormBuilder) { }
+  constructor(private fb: FormBuilder, private prod: ProdutoService, private authService: AuthService, private fbImagem: FormBuilder) { }
 
   ngOnInit(): void {
     this.produtoForm = this.fb.group({
       nome: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      valor : [Number, [Validators.required]],
+      valor: [Number, [Validators.required]],
       tempo: [Number, [Validators.required]],
-      quantidadeEstoque:[Number],
+      quantidadeEstoque: [Number],
       imagem: ['', [Validators.required]]
     })
 
@@ -62,13 +62,7 @@ export class CadastroprodutoComponent implements OnInit {
     }
   }
 
-  // onUpload() {
-  //   this.formData.append('file', this.imagemForm.get('profile').value);
-  //   console.log(this.formData);
-  // }
-
-  inserirProduto(){
-    console.log(this.produtoForm.value);
+  inserirProduto() {
     this.formData.append('nome', this.produtoForm.get('nome').value);
     this.formData.append('tipo', this.produtoForm.get('tipo').value);
     this.formData.append('descricao', this.produtoForm.get('descricao').value);
@@ -77,23 +71,5 @@ export class CadastroprodutoComponent implements OnInit {
     this.formData.append('quantidadeEstoque', this.produtoForm.get('quantidadeEstoque').value);
     this.formData.append('imagem', this.produtoForm.get('imagem').value);
     this.formData.append('file', this.imagemForm.get('profile').value);
-
-    // this.prod.addProduto(this.formData, this.authService.loggedUser().id).subscribe(
-    //   (response) => {
-
-
-    //     console.log(response + 'response received');
-    //     this.atualizar();
-
-    //   }
-    // )
-
-    // this.http.post("http://localhost:8080/produto/create/" + this.authService.loggedUser().id, this.formData).subscribe(
-    //   event => {console.log(event), this.atualizar()});
   }
-
-  // uploadarImage(file: File) {
-  //   this.prod.uploadImage(file).subscribe();
-  // }
-
 }

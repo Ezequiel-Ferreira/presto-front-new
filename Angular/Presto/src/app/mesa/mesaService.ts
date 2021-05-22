@@ -1,3 +1,4 @@
+import { BaseApi } from './../base-apis';
 import { Pedido } from './../pedidos/pedido';
 import { AuthService } from './../authService/authservice.service';
 import { Mesa } from './mesa';
@@ -11,25 +12,27 @@ import { Produto } from '../produto/produto';
 @Injectable({
   providedIn: 'root',
 })
-export class MesaService {
-  constructor(private http: HttpClient, private authService: AuthService) { }
+export class MesaService extends BaseApi {
+  constructor(private http: HttpClient, private authService: AuthService) {
+    super();
+  }
   // Chamadas para mesa
   getAllMesas(): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8080/mesa/mesausuario/' +
-      this.authService.loggedUser().id
+      this.URL_BASE + '/mesa/mesausuario/' +
+      this.authService.loggedUser()
     );
   }
 
   criarMesa(mesa: Mesa): Observable<any> {
     return this.http.post<any>(
-      'http://localhost:8080/mesa/create/' + this.authService.loggedUser().id,
+      this.URL_BASE + '/mesa/create/' + this.authService.loggedUser(),
       mesa
     );
   }
   addPedidoMesa(id: number): Observable<Pedido> {
     return this.http.put<Pedido>(
-      'http://localhost:8080/mesa/createpedido/' + id,
+      this.URL_BASE + '/mesa/createpedido/' + id,
       true
     );
   }
@@ -37,54 +40,54 @@ export class MesaService {
   // Chamadas para pedidos
   criarPedido(pedido: Pedido): Observable<Pedido> {
     return this.http.post<Pedido>(
-      'http://localhost:8080/pedido/create',
+      this.URL_BASE + '/pedido/create',
       pedido
     );
   }
 
   addProdutosPedido(produtos: Produto[], id: number): Observable<any> {
     return this.http.put<any>(
-      'http://localhost:8080/pedido/addprodutos/' + id,
+      this.URL_BASE + '/pedido/addprodutos/' + id,
       produtos
     );
   }
 
   atualizarProdutosPedido(produtos: Produto[], id: number): Observable<any> {
     return this.http.put<any>(
-      'http://localhost:8080/pedido//updateitensdopedido/' + id,
+      this.URL_BASE + '/pedido//updateitensdopedido/' + id,
       produtos
     );
   }
 
   pedidoDaMesa(id: number): Observable<any> {
     return this.http.get<Pedido>(
-      'http://localhost:8080/mesa/getpedidomesa/' + id
+      this.URL_BASE + '/mesa/getpedidomesa/' + id
     );
   }
 
   removePedidoMesa(idMesa: number, idPedido: number): Observable<any> {
     return this.http.put<any>(
-      `http://localhost:8080/mesa/removepedido/${idMesa}/${idPedido}`,
+      this.URL_BASE + `/mesa/removepedido/${idMesa}/${idPedido}`,
       true
     );
   }
 
   tempoMesa(idPedido: number, tempoIdeal: Date, now: Date, pedido: Pedido): Observable<any> {
     return this.http.put<Pedido>(
-      `http://localhost:8080/pedido/addtempo/${idPedido}/${tempoIdeal.getTime()}/${now.getTime()}`,
+      this.URL_BASE + `/pedido/addtempo/${idPedido}/${tempoIdeal.getTime()}/${now.getTime()}`,
       pedido
     );
   }
 
   getMesaByTime(): Observable<any> {
     return this.http.get<Mesa[]>(
-      `http://localhost:8080/mesa/mesasbytime/${this.authService.loggedUser().id}`
+      this.URL_BASE + `/mesa/mesasbytime/${this.authService.loggedUser()}`
     )
   }
 
   timerPedido(): Observable<any> {
     return this.http.put<Mesa[]>(
-      `http://localhost:8080/mesa/diminuirtempo/${this.authService.loggedUser().id}`, true
+      this.URL_BASE + `/mesa/diminuirtempo/${this.authService.loggedUser()}`, true
     )
   }
 }
