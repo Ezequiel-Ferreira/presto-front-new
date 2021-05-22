@@ -1,6 +1,8 @@
 import { Pedido } from '../pedidos/pedido';
-export class Mesa{
-  id:number;
-  nome : string;
-  pedido : Pedido;
+import { Restaurante } from '../restaurante/restaurante';
+export class Mesa {
+  id: number;
+  nome: string;
+  pedido: Pedido;
+  mesaRestaurante: Restaurante;
 }

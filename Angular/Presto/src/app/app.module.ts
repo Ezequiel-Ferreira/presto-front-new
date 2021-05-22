@@ -14,7 +14,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { SwitchComponent } from './switch/switch.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GuardRouters } from './guard/guardRouters';
 import { ProdutoComponent } from './produto/produto.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
@@ -27,6 +27,7 @@ import { CozinhaComponent } from './cozinha/cozinha.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { AuthService } from './authService/authservice.service';
 import { StorageService } from './storageService/storage.service';
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,11 @@ import { StorageService } from './storageService/storage.service';
     JwtHelperService,
     AuthService,
     StorageService,
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

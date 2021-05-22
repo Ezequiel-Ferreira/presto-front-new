@@ -20,13 +20,13 @@ export class MesaService extends BaseApi {
   getAllMesas(): Observable<any> {
     return this.http.get<any>(
       this.URL_BASE + '/mesa/mesausuario/' +
-      this.authService.loggedUser()
+      this.authService.loggedUser().idRestaurante
     );
   }
 
   criarMesa(mesa: Mesa): Observable<any> {
     return this.http.post<any>(
-      this.URL_BASE + '/mesa/create/' + this.authService.loggedUser(),
+      this.URL_BASE + '/mesa/create/' + this.authService.loggedUser().idRestaurante,
       mesa
     );
   }
