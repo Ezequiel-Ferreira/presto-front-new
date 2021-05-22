@@ -15,7 +15,6 @@ import { Usuario } from '../usuario/usuario';
 })
 export class AuthService extends BaseApi {
   mostrarMenuEmitter = new EventEmitter<Boolean>()
-  usuarioAutenticado: boolean = false
   retornoSenha: boolean = true
   jwtHelper?: JwtHelperService = new JwtHelperService();
 
