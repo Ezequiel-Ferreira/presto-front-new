@@ -19,14 +19,14 @@ export class ProdutoService extends BaseApi {
   produtos(): Observable<Produto[]> {
     return this.http.get<Produto[]>(
       this.URL_BASE + '/produto/produtousuario/' +
-      this.authService.loggedUser()
+      this.authService.loggedUser().idRestaurante
     );
   }
 
   adicionarProdutoNocardapio(produto: Produto): Observable<any> {
     return this.http.put<Cardapio>(
       this.URL_BASE + '/cardapio/addproduto/' +
-      this.authService.loggedUser(),
+      this.authService.loggedUser().idRestaurante,
       produto
     );
   }
@@ -34,7 +34,7 @@ export class ProdutoService extends BaseApi {
   addProduto(produto: FormData): Observable<any> {
     return this.http.post<Produto>(
       this.URL_BASE + '/produto/create/' +
-      this.authService.loggedUser(),
+      this.authService.loggedUser().idRestaurante,
       produto
     );
   }
