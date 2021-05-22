@@ -22,6 +22,7 @@ export class ProdutoService extends BaseApi {
       this.authService.loggedUser()
     );
   }
+
   adicionarProdutoNocardapio(produto: Produto): Observable<any> {
     return this.http.put<Cardapio>(
       this.URL_BASE + '/cardapio/addproduto/' +
@@ -38,16 +39,13 @@ export class ProdutoService extends BaseApi {
     );
   }
 
-  // addProduto(produto: Produto, file: File):  Observable <any>{
-  //   return this.http.post<Produto>( this.URL_BASE+"/produto/create", produto, file);
-  // }
-
   updateProduto(produto: FormData, id: number): Observable<any> {
     return this.http.put<Produto>(
       this.URL_BASE + '/produto/update/' + id,
       produto
     );
   }
+
   updateProdutoSemImagem(produto: Produto, id: number): Observable<any> {
     return this.http.put<Produto>(
       this.URL_BASE + '/produto/updatesemimagem/' + id,
@@ -58,8 +56,4 @@ export class ProdutoService extends BaseApi {
   deleteProduto(id: Number): Observable<any> {
     return this.http.delete<any>(this.URL_BASE + '/produto/delete/' + id);
   }
-
-  // uploadImage(file: File): Observable<any> {
-  //   console.log(file.name);
-  //   return this.http.post<any>( this.URL_BASE+"/image/create", file, { observe: 'response' });
 }

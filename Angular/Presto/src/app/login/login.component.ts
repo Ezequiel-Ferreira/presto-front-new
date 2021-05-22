@@ -33,22 +33,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log("Login chamado")
-    console.log(this.signInForm.value.email)
     this.authService.login(this.signInForm.value).subscribe(
       retorno => {
         if (retorno) {
-          console.log('response')
           this.successMessageLogin = "Login efetuado com sucesso";
           setTimeout(() => { this.route.navigate(['/pedidos']); }, 2000)
         } else {
-          console.log('error')
           this.errorMessageLogin = "Usuario e senha invalido"
           this.loading = false
         }
       },
       (error) => {
-        console.log('error')
         this.errorMessageLogin = error
         this.loading = false
       }
@@ -62,11 +57,9 @@ export class LoginComponent implements OnInit {
   async enviarSenhaPorEmail() {
     this.usuarioSevice.redefinirSenha(this.emailRedef).subscribe(
       (response) => {
-        console.log('response received');
         this.successMessage = response;
       },
       (error) => {
-        console.log('Error caught in component!')
         this.errorMessage = error;
       }
     );

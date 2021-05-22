@@ -49,7 +49,6 @@ export class ProdutoComponent implements OnInit {
   ngOnInit(): void {
     this.produtoService.produtos().subscribe((produtosLista) => {
       this.produtos = produtosLista;
-      console.log(produtosLista);
     });
 
     this.updateProdutoForm = this.fb.group({
@@ -85,20 +84,16 @@ export class ProdutoComponent implements OnInit {
 
   atualizarTodaPagina() {
     sessionStorage.refresh = true;
-    console.log('sessionStorage', sessionStorage);
     (sessionStorage.refresh == 'true' || !sessionStorage.refresh) &&
       location.reload();
     sessionStorage.refresh = false;
   }
 
   capturaId(id: number) {
-    console.log(id);
     this.id = id;
   }
 
   updateProduto(id: number) {
-    // this.produtoService.updateProduto(this.updateProdutoForm.value, nome).subscribe(
-    //   produtoAtualizado => {console.log(produtoAtualizado)}
     if (this.imageForm.get('profile').value != '') {
       this.formData.append('nome', this.updateProdutoForm.get('nome').value);
       this.formData.append(
@@ -120,14 +115,12 @@ export class ProdutoComponent implements OnInit {
       this.produtoService
         .updateProduto(this.formData, id)
         .subscribe((retorno) => {
-          console.log(retorno);
           this.load();
         });
     } else if (this.imageForm.get('profile').value === '') {
       this.produtoService
         .updateProdutoSemImagem(this.updateProdutoForm.value, id)
         .subscribe((retorno) => {
-          console.log(retorno);
           this.atualizarTodaPagina();
           this.load();
         });
@@ -136,7 +129,6 @@ export class ProdutoComponent implements OnInit {
 
   inserirProduto(event: Event) {
     event.preventDefault();
-    console.log(this.produtoForm.value);
     this.formData.append('nome', this.produtoForm.get('nome').value);
     this.formData.append('tipo', this.produtoForm.get('tipo').value);
     this.formData.append('descricao', this.produtoForm.get('descricao').value);
@@ -151,13 +143,11 @@ export class ProdutoComponent implements OnInit {
 
     this.produtoService.addProduto(this.formData).subscribe(
       (response) => {
-        console.log(response + 'response received');
         this.produto = response;
         this.successMessage = response;
         this.load();
       },
       (error) => {
-        console.log(`${error} error caught in component`)
         this.errorMessage = error;
         this.loading = false;
       }
@@ -171,7 +161,6 @@ export class ProdutoComponent implements OnInit {
         this.load();
       },
       (error) => {
-        console.log(error);
         alert('Produto já no cardapio');
       }
     );
@@ -197,24 +186,4 @@ export class ProdutoComponent implements OnInit {
       this.imageForm.get('profile').setValue(file);
     }
   }
-
-  // Edit product
-  // public onFileChanged(event) {
-  //   if (event.target.files.length > 0) {
-  //     const file = event.target.files[0];
-  //     this.imageForm.get('profile').setValue(file);
-  //   }
-  // }
-
-  // uploadarImage(file: File) {
-  //   this.produtoService.uploadImage(file).subscribe(
-  //     (response) => {
-  //       if (response.status === 500) {
-  //         console.log("Upload bem sucedido");
-  //       } else {
-  //         console.log("Upload mal sucedido");
-  //       }
-  //     }
-  //   );
-  // }
 }

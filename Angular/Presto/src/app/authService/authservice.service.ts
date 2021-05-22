@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalUser } from '../models/local_user';
 import { StorageService } from '../storageService/storage.service';
+import { Usuario } from '../usuario/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,6 @@ export class AuthService extends BaseApi {
   }
 
   login(credentials: CredentialsDTO): Observable<any> {
-    console.log(credentials)
     return this.http.post<any>(
       this.URL_BASE + '/login',
       credentials,
@@ -32,21 +32,24 @@ export class AuthService extends BaseApi {
       })
       .pipe(
         map(usuario => {
-          console.log(usuario)
           this.succesfulLogin(usuario.headers.get('Authorization'));
-          this.router.navigate(['/home']);
+          this.router.navigate(['/pedidos']);
           return usuario;
         }));
   }
 
   succesfulLogin(authorizationValue: string) {
-    console.log(authorizationValue);
     let tok = authorizationValue.substring(7);
-    let user: LocalUser = {
-      token: tok,
-      email: this.jwtHelper.decodeToken(tok).sub
-    };
-    this.storage.setLocalUser(user);
+    this.http.get<Usuario>(this.URL_BASE + '/usuario/' + this.jwtHelper.decodeToken(tok).sub).pipe(map(user => {
+      return user.restaurantes[0].id;
+    })).subscribe(number => {
+      let user: LocalUser = {
+        token: tok,
+        email: this.jwtHelper.decodeToken(tok).sub,
+        idRestaurante: number,
+      };
+      this.storage.setLocalUser(user);
+    });
   }
 
   logout() {

@@ -20,7 +20,6 @@ export class CozinhaComponent implements OnInit {
   ngOnInit(): void {
     this.mesaService.getMesaByTime().subscribe(
       mesas => {
-        console.log(mesas)
         this.mesas = mesas;
       }
     )
@@ -33,7 +32,6 @@ export class CozinhaComponent implements OnInit {
     setInterval(() => {
       this.mesaService.timerPedido().subscribe(
         retornoTimer => {
-          // console.log(retornoTimer);
           this.load();
         }
       )

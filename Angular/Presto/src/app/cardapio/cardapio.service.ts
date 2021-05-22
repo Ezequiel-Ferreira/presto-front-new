@@ -34,11 +34,6 @@ export class CardapioService extends BaseApi {
     return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/produtoscardapiobyname/${this.authService.loggedUser()}/${nome}`);
   }
 
-
-  // produtoPorId(id: number): Observable<Produto> {
-  //   return this.http.get<Produto>(`http://localhost:8080/produto/${id}`)
-  // }
-
   produtoPorTipo(tipo: string): Observable<Produto[]> {
     return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/getfiltro/${this.authService.loggedUser()}/${tipo}`);
   }
@@ -48,7 +43,6 @@ export class CardapioService extends BaseApi {
   }
 
   removeProduto(produto: Produto): Observable<any> {
-    console.log("service", produto.nome);
     return this.http.put<any>(`${this.URL_BASE}/cardapio/remove/${this.authService.loggedUser()}`, produto);
   }
 }
