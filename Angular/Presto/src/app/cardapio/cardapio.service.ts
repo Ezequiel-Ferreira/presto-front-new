@@ -24,18 +24,18 @@ export class CardapioService extends BaseApi {
   }
 
   cardapio(): Observable<any> {
-    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getbyid/${this.authService.loggedUser()}`);
+    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getbyid/${this.authService.loggedUser().idRestaurante}`);
   }
   produtosCardapio(): Observable<any> {
-    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getprodutoscardapio/${this.authService.loggedUser()}`);
+    return this.http.get<Cardapio>(`${this.URL_BASE}/cardapio/getprodutoscardapio/${this.authService.loggedUser().idRestaurante}`);
   }
 
   produtosPorNomeCardapio(nome: String): Observable<any> {
-    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/produtoscardapiobyname/${this.authService.loggedUser()}/${nome}`);
+    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/produtoscardapiobyname/${this.authService.loggedUser().idRestaurante}/${nome}`);
   }
 
   produtoPorTipo(tipo: string): Observable<Produto[]> {
-    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/getfiltro/${this.authService.loggedUser()}/${tipo}`);
+    return this.http.get<Produto[]>(`${this.URL_BASE}/cardapio/getfiltro/${this.authService.loggedUser().idRestaurante}/${tipo}`);
   }
 
   addProdutoNoCardapio(nome: String, produto: Produto) {
@@ -43,6 +43,6 @@ export class CardapioService extends BaseApi {
   }
 
   removeProduto(produto: Produto): Observable<any> {
-    return this.http.put<any>(`${this.URL_BASE}/cardapio/remove/${this.authService.loggedUser()}`, produto);
+    return this.http.put<any>(`${this.URL_BASE}/cardapio/remove/${this.authService.loggedUser().idRestaurante}`, produto);
   }
 }
