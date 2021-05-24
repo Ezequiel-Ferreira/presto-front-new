@@ -40,7 +40,7 @@ export class UsuarioService extends BaseApi {
   }
 
   redefinirSenha(email: String): Observable<any> {
-    return this.http.put<any>("http://localhost:8080/usuario/redefinirsenha/" + email, true)
+    return this.http.put<any>(this.URL_BASE +"usuario/redefinirsenha/" + email, true)
   }
 
 }
