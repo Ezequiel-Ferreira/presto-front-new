@@ -14,19 +14,14 @@ import { delay, timeout } from 'rxjs/operators';
 })
 export class CadastroComponent implements OnInit {
 
+  idAdmin: Number;
   usuarioForm: FormGroup;
   cardapioFrom: FormGroup;
-
   data: any;
-
   usuario: Usuario;
-
   errorMessage = "";
-
   successMessage = "";
-
   loading = false;
-
   mostrarModalCardapioCriar: boolean = false;
 
   constructor(private fb: FormBuilder, private fbCardapio: FormBuilder, private cardapioService: CardapioService, private us: UsuarioService, private route: Router) { }
@@ -37,18 +32,14 @@ export class CadastroComponent implements OnInit {
       confemail: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(8)]],
       nome: ['', Validators.required],
-      dataNascimento: ['', Validators.required]
+      dataNascimento: ['', Validators.required],
+      nomeRestaurante: ['', Validators.required]
     });
-
-    this.cardapioFrom = this.fbCardapio.group({
-      nome: ['']
-    })
-
-
   }
 
   inserirUsuario() {
-    this.us.addUsuario(this.usuarioForm.value).subscribe(
+    console.log(this.usuarioForm.value)
+    this.us.addUsuario(this.usuarioForm.value, this.idAdmin).subscribe(
       (response) => {
         this.usuario = response;
         this.successMessage = response;
@@ -64,15 +55,6 @@ export class CadastroComponent implements OnInit {
   obter() {
     this.data = this.usuarioForm.value;
     this.us = this.data;
-  }
-
-  criarCardapio() {
-    this.cardapioService.criarCardapio(this.cardapioFrom.value, this.usuario.id).subscribe(
-      response => {
-        this.mostrarModalCardapioCriar = false;
-        setTimeout(() => { this.route.navigate(['/login']); }, 1000)
-      }
-    )
   }
 
   confereEmailValidator(email) {

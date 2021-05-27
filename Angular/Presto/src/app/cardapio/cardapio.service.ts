@@ -19,8 +19,8 @@ export class CardapioService extends BaseApi {
     return this.http.get<Produto[]>(`${this.URL_BASE}/produto/produtos`);
   }
 
-  criarCardapio(cardapio: Cardapio, id: number) {
-    return this.http.post<Cardapio>(`${this.URL_BASE}/cardapio/create/${id}`, cardapio);
+  criarCardapio(cardapio: Cardapio) {
+    return this.http.post<Cardapio>(`${this.URL_BASE}/cardapio/create/${this.authService.loggedUser().idRestaurante}`, cardapio);
   }
 
   cardapio(): Observable<any> {
