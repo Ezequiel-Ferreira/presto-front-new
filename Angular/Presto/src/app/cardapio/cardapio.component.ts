@@ -15,52 +15,68 @@ export class CardapioComponent implements OnInit {
   produtos: Produto[];
   cardapio: Cardapio;
   nome: String;
-  constructor(private cardapioService: CardapioService, private fb: FormBuilder) { }
+  mostrarCardapio: boolean = false;
+  cardapioFrom: FormGroup;
+
+  constructor(private cardapioService: CardapioService, private fb: FormBuilder, private fbCardapio: FormBuilder) { }
 
   ngOnInit(): void {
     this.cardapioService.produtosCardapio().subscribe(
       produtos => {
         this.produtos = produtos;
+      },
+      error => {
+        this.mostrarCardapio = true;
       }
     );
 
+    this.cardapioFrom = this.fbCardapio.group({
+      nome: ['']
+    })
   }
 
+  criarCardapio() {
+    this.cardapioService.criarCardapio(this.cardapioFrom.value).subscribe(
+      response => {
+        this.mostrarCardapio = false;
+      }
+    )
+  }
 
-  exibirfiltroGeral(){
+  exibirfiltroGeral() {
     this.cardapioService.produtosCardapio().subscribe(
       produtos => {
         this.produtos = produtos;
       }
     );
   }
-  exibirfiltroComida(){
+  exibirfiltroComida() {
     this.cardapioService.produtoPorTipo("comida").subscribe(
       produtosLista => {
         this.produtos = produtosLista;
       }
     );
   }
-  exibirfiltroBebida(){
+  exibirfiltroBebida() {
     this.cardapioService.produtoPorTipo("bebida").subscribe(
       produtosLista => {
         this.produtos = produtosLista;
       }
     );
   }
-  buscar(){
-    if(this.nome === null || this.nome === ''){
+  buscar() {
+    if (this.nome === null || this.nome === '') {
       this.cardapioService.produtosCardapio().subscribe(
         produtos => {
           this.produtos = produtos;
         }
       );
-    }else if(this.nome !== null && this.nome !== ''){
-    this.cardapioService.produtosPorNomeCardapio(this.nome).subscribe(
-      response =>{
-        this.produtos = response;
-      }
-    );
-  }
+    } else if (this.nome !== null && this.nome !== '') {
+      this.cardapioService.produtosPorNomeCardapio(this.nome).subscribe(
+        response => {
+          this.produtos = response;
+        }
+      );
+    }
   }
 }

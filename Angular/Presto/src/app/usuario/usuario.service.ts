@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from './usuario';
 import { tap } from 'rxjs/operators';
+import { UserDto } from '../dto/userdto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,6 @@ export class UsuarioService extends BaseApi {
   constructor(private http: HttpClient) {
     super();
   }
-
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -33,14 +33,15 @@ export class UsuarioService extends BaseApi {
     )
   }
 
-  addUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post<Usuario>(this.URL_BASE + + "/usuario/create", usuario).pipe(
+  addUsuario(usuario: UserDto, id: Number): Observable<any> {
+    console.log(usuario)
+    return this.http.post<Usuario>(`${this.URL_BASE}/usuario/createAdmin/${id}`, usuario).pipe(
       tap((newUsuario: Usuario) => console.log(`usuario adicionado email= ${newUsuario.email}`))
     )
   }
 
   redefinirSenha(email: String): Observable<any> {
-    return this.http.put<any>(this.URL_BASE +"usuario/redefinirsenha/" + email, true)
+    return this.http.put<any>(this.URL_BASE + "usuario/redefinirsenha/" + email, true)
   }
 
 }

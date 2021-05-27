@@ -1,19 +1,29 @@
 <div class="container-fluid">
 
+  <form *ngIf="mostrarCardapio" [formGroup]="cardapioFrom" (ngSubmit)="criarCardapio()">
+    <div class="form-group">
+      <label for="confemail" class="ml-1 mt-3 font-weight-bold">Digite o nome do seu cardápio:</label>
+      <input type="text" class="form-control form-control-lg text-center" name="nome" id="nome" formControlName="nome">
+    </div>
+    <div class="form-group">
+      <button type="submit"
+        class="btn btn-secondary btn-lg d-block mx-auto customSizeBtn rounded-pill">Cadastrar</button>
+    </div>
+  </form>
+
   <div class="h1 d-flex justify-content-center mt-3 col-sm-6 justify-content-around">
     <div class="mb-2 bg-white">
-      <input class="col-xs-2 rounded-pill " style="max-width:300px; max-height: 40px; font-size: medium;" type="text" (input)="this.nome=$event.target.value" (input)="buscar()" placeholder="Buscar Produto por nome"/>
+      <input class="col-xs-2 rounded-pill " style="max-width:300px; max-height: 40px; font-size: medium;" type="text"
+        (input)="this.nome=$event.target.value" (input)="buscar()" placeholder="Buscar Produto por nome" />
     </div>
-
     <div class="">
-    <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroGeral()"
-      style="font-size: 32px;">Geral</button>
-    <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroComida()"
-      style="font-size: 32px;">Comida</button>
-    <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroBebida()"
-      style="font-size: 32px;">Bebida</button>
-  </div>
-
+      <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroGeral()"
+        style="font-size: 32px;">Geral</button>
+      <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroComida()"
+        style="font-size: 32px;">Comida</button>
+      <button type="button" class="btn btn-outline-light text-dark" (click)="exibirfiltroBebida()"
+        style="font-size: 32px;">Bebida</button>
+    </div>
   </div>
 
   <div class="row">
