@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center align-self-center">
     <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100 mt-5 border">
-      <form *ngIf="mostrarModalCardapioCriar=== false" [formGroup]="usuarioForm" (ngSubmit)="inserirUsuario()">
+      <form [formGroup]="usuarioForm" (ngSubmit)="inserirUsuario()">
         <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
           <div class="text-center">Erro ao cadastrar usuário. </div>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -15,9 +15,12 @@
           </button>
         </div>
         <div class="form-group">
-          <label for="nomeRestaurante" class="ml-1 mt-3 font-weight-bold">Digite o nome do seu restaurante:</label>
-          <input class="form-control form-control-lg text-center" name="nomeRestaurante" id="nomeRestaurante"
-            formControlName="nomeRestaurante" placeholder="Nome do Restaurante" required>
+          <label for="nomeRestaurante" class="ml-1 mt-3 font-weight-bold">Qual o restaurante:</label>
+          <select *ngFor="let restaurant of restaurants" class="form-control form-control-lg text-center"
+            name="nomeRestaurante" id="nomeRestaurante" formControlName="nomeRestaurante"
+            placeholder="Nome do Restaurante" required>
+            <option [value]="restaurant">{{restaurants}}</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="email" class="ml-1 mt-3 font-weight-bold">Digite seu email:</label>

@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../usuario/usuario.service';
 import { Router } from '@angular/router';
 import { delay, timeout } from 'rxjs/operators';
+import { RestauranteService } from '../restaurante/restaurante.service';
+import { Restaurante } from '../restaurante/restaurante';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { delay, timeout } from 'rxjs/operators';
   styleUrls: ['./cadastro.component.css']
 })
 export class CadastroComponent implements OnInit {
-
+  restaurants: Restaurante[];
   idAdmin: Number;
   usuarioForm: FormGroup;
   cardapioFrom: FormGroup;
@@ -24,7 +26,7 @@ export class CadastroComponent implements OnInit {
   loading = false;
   mostrarModalCardapioCriar: boolean = false;
 
-  constructor(private fb: FormBuilder, private fbCardapio: FormBuilder, private cardapioService: CardapioService, private us: UsuarioService, private route: Router) { }
+  constructor(private fb: FormBuilder, private fbCardapio: FormBuilder, private cardapioService: CardapioService, private us: UsuarioService, private route: Router, private restauranteService: RestauranteService) { }
 
   ngOnInit(): void {
     this.usuarioForm = this.fb.group({
@@ -35,6 +37,12 @@ export class CadastroComponent implements OnInit {
       dataNascimento: ['', Validators.required],
       nomeRestaurante: ['', Validators.required]
     });
+
+    this.restauranteService.getAllRestaurants().subscribe(
+      response => {
+        this.restaurants = response
+      }
+    )
   }
 
   inserirUsuario() {
@@ -44,6 +52,7 @@ export class CadastroComponent implements OnInit {
         this.usuario = response;
         this.successMessage = response;
         this.mostrarModalCardapioCriar = true;
+        this.route.navigate(['/login']);
       },
       (error) => {
         this.errorMessage = error;

@@ -15,31 +15,22 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./mesa.component.css']
 })
 export class MesaComponent implements OnInit {
-
   mesas: Mesa[];
   mesaForm: FormGroup;
   mesa: Mesa;
   mesaId: number;
-
   pedido: Pedido;
   pedidoMesa: Pedido;
   pedidoForm: FormGroup;
-
   produtosCardapioGeral: Produto[];
-
   produtosCardapioComida: Produto[];
-
   produtosCardapioBebida: Produto[];
   produtosPedido: Produto[] = new Array;
   mostrarProdutos: number = 1;
-
   filtro = 1;
-
   //Icones
   faPlus = faPlus;
-
   @ViewChild('fechaModal') fechaModal: ElementRef;
-
   public date = new Date();
 
   constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService) { }
