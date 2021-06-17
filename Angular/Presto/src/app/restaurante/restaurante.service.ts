@@ -13,8 +13,8 @@ export class RestauranteService extends BaseApi {
   }
 
   // Get for all restaurants
-  getAllRestaurants(): Observable<any> {
-    return this.http.get<any>(
+  getAllRestaurants(): Observable<String[]> {
+    return this.http.get<String[]>(
       `${this.URL_BASE}/restaurante/restaurantes/nomes`
     )
   }

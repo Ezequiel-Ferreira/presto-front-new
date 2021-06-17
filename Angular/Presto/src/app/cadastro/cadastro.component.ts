@@ -15,7 +15,7 @@ import { Restaurante } from '../restaurante/restaurante';
   styleUrls: ['./cadastro.component.css']
 })
 export class CadastroComponent implements OnInit {
-  restaurants: Restaurante[];
+  restaurants: String[] = [];
   idAdmin: Number;
   usuarioForm: FormGroup;
   cardapioFrom: FormGroup;
@@ -40,7 +40,10 @@ export class CadastroComponent implements OnInit {
 
     this.restauranteService.getAllRestaurants().subscribe(
       response => {
-        this.restaurants = response
+        console.log(response);
+        response.forEach(nome => {
+          this.restaurants.push(nome);
+        })
       }
     )
   }
