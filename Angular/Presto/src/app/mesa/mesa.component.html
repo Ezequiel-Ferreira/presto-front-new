@@ -10,17 +10,18 @@
               <h5>{{mesa?.nome}}</h5>
             </div>
             <div *ngIf="mesa.pedido === null" class="card-body bg-info text-white m-2 rounded">
-              <h5 id="demo-id" class="card-title"> Sem Pedido </h5>
+              <h5 id="demo-id" class="card-title"> {{mesa?.status}} </h5>
             </div>
 
             <div *ngIf="mesa.pedido !== null && date.getTime() < mesa?.pedido?.tempoIdeal"
               class="card-body bg-success text-white m-2 rounded">
-              <h5 id="demo-id" class="card-title"> Em andamento </h5>
+              <h5 id="demo-id" class="card-title"> {{mesa?.status}} </h5>
             </div>
 
             <div *ngIf="mesa.pedido !== null && date.getTime() >= mesa?.pedido?.tempoIdeal"
               class="card-body bg-danger text-white m-2 rounded">
               <h5 id="demo-id" class="card-title"> Atrasado </h5>
+              <p>{{mesa?.status}}</p>
             </div>
 
             <!--Modal Criação Pedido-->
