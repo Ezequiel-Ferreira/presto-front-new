@@ -24,11 +24,11 @@
               <p>{{mesa?.status}}</p>
             </div>
             <div *ngIf="mesa?.status=== 'OCUPADA'">
-              <button type="button" class="btn btn-secondary"
+              <button type="button" class="btn btn-secondary mx-auto d-flex justify-content-center mb-2"
                         (click)="removerCliente(mesa?.id)">Remover cliente da mesa</button>
             </div>
             <div *ngIf="mesa?.status=== 'CHAMANDO GARCOM'">
-              <button type="button" class="btn btn-secondary mx-auto"
+              <button type="button" class="btn btn-secondary mx-auto d-flex justify-content-center mb-2"
                         (click)="atenderCliente(mesa?.id)">Atender cliente</button>
             </div>
 
