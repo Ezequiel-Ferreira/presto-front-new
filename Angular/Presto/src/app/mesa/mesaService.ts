@@ -18,8 +18,8 @@ export class MesaService extends BaseApi {
     super();
   }
   // Chamadas para mesa
-  getAllMesas(): Observable<any> {
-    return this.http.get<any>(
+  getAllMesas(): Observable<Mesa[]> {
+    return this.http.get<Mesa[]>(
       this.URL_BASE + '/mesa/mesarestaurante/' +
       this.authService.loggedUser().idRestaurante
     ).pipe
@@ -90,6 +90,18 @@ export class MesaService extends BaseApi {
   timerPedido(): Observable<any> {
     return this.http.put<Mesa[]>(
       this.URL_BASE + `/mesa/diminuirtempo/${this.authService.loggedUser().idRestaurante}`, true
+    )
+  }
+
+  removeClienteMesa(idMesa: number): Observable<any>{
+    return this.http.put<any>(
+      this.URL_BASE + `/mesa/mesaremovecliente/${idMesa}`, true
+    )
+  }
+
+  atenderCliente(idMesa: number): Observable<any>{
+    return this.http.put<any>(
+      this.URL_BASE + `/mesa/clienteatendido/${idMesa}`, true
     )
   }
 }

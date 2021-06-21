@@ -10,4 +10,5 @@ export interface Pedido {
   itensDoPedido: Produto[];
   maiorTempo : number;
   tempoIdeal:number;
+  nomeCliente: string;
 }

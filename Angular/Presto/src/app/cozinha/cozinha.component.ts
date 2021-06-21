@@ -12,18 +12,24 @@ export class CozinhaComponent implements OnInit {
 
   constructor(private mesaService: MesaService) { }
 
-  mesas: Mesa[];
+  mesas: Mesa[] = [];
 
   public date = new Date();
 
+  showSemPedidos: boolean = false;
+
 
   ngOnInit(): void {
-    this.mesaService.getMesaByTime().subscribe(
+    this.mesaService.getAllMesas().subscribe(
       mesas => {
         this.mesas = mesas;
       }
-    )
-
+    );
+    setTimeout(()=>{
+      if(this.mesas.length === 0 || this.mesas.filter(m => m.pedido != null).length === 0){
+        this.showSemPedidos = true;
+      }
+    }, 1000)
 
     setInterval(() => {
       this.date = new Date();
