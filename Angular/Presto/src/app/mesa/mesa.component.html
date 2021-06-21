@@ -7,28 +7,37 @@
         <div class="card-body col-md-2" *ngFor="let mesa of mesas">
           <div class="card border">
             <div class="card-header bg-white">
-              <h5>{{mesa?.nome}}</h5>
+              <h5>{{mesa?.nome}} id: {{mesa?.id}}</h5>
             </div>
             <div *ngIf="mesa.pedido === null" class="card-body bg-info text-white m-2 rounded">
-              <h5 id="demo-id" class="card-title"> Sem Pedido </h5>
+              <h5 id="demo-id" class="card-title"> {{mesa?.status}} </h5>
             </div>
 
             <div *ngIf="mesa.pedido !== null && date.getTime() < mesa?.pedido?.tempoIdeal"
               class="card-body bg-success text-white m-2 rounded">
-              <h5 id="demo-id" class="card-title"> Em andamento </h5>
-            </div>
+              <h5 id="demo-id" class="card-title"> {{mesa?.status}} </h5>
+             </div>
 
             <div *ngIf="mesa.pedido !== null && date.getTime() >= mesa?.pedido?.tempoIdeal"
               class="card-body bg-danger text-white m-2 rounded">
               <h5 id="demo-id" class="card-title"> Atrasado </h5>
+              <p>{{mesa?.status}}</p>
+            </div>
+            <div *ngIf="mesa?.status=== 'OCUPADA'">
+              <button type="button" class="btn btn-secondary"
+                        (click)="removerCliente(mesa?.id)">Remover cliente da mesa</button>
+            </div>
+            <div *ngIf="mesa?.status=== 'CHAMANDO GARCOM'">
+              <button type="button" class="btn btn-secondary mx-auto"
+                        (click)="atenderCliente(mesa?.id)">Atender cliente</button>
             </div>
 
             <!--Modal Criação Pedido-->
             <div class="col d-flex justify-content-center">
               <!--Botão de chamada do Modal-->
-              <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary mb-2"
+            <!--  <button *ngIf="mesa?.pedido === null" type="button" class="btn btn-outline-primary mb-2"
                 data-toggle="modal" [attr.data-target]="'#modalMesa'+mesa.id"
-                style="background-color: #007bff; color: white;" (click)="capturaIdMesa(mesa.id)" >Fazer pedido</button>
+                style="background-color: #007bff; color: white;" (click)="capturaIdMesa(mesa.id)" >Fazer pedido</button>-->
               <div class="modal fade" [attr.id]="'modalMesa'+mesa.id" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <!--Modal Pedido-->
@@ -198,7 +207,7 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">{{pedidoMesa?.nome}}</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Pedido {{pedidoMesa?.nome}} do cliente {{pedidoMesa?.nomeCliente}}</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -208,8 +217,10 @@
                       <div class="p-3 mt-2 mb-2 bg-light text-dark rounded">
                         <h5> Itens </h5>
                         <div *ngFor="let produto of pedidoMesa?.itensDoPedido">
-                          <div>
-                            <p>{{produto?.nome}} ---------------- R${{produto?.valor}}</p>
+                          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <p>{{produto?.nome}}</p>
+                            <p>-----------</p>
+                            <p>R${{produto?.valor}}</p>
                           </div>
                         </div>
                         <div>

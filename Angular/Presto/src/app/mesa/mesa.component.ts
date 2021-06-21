@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MesaService } from './mesaService';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -6,6 +7,7 @@ import { Pedido } from '../pedidos/pedido';
 import { CardapioService } from '../cardapio/cardapio.service';
 import { Produto } from '../produto/produto';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -33,7 +35,7 @@ export class MesaComponent implements OnInit {
   @ViewChild('fechaModal') fechaModal: ElementRef;
   public date = new Date();
 
-  constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService) { }
+  constructor(private mesaService: MesaService, private fb: FormBuilder, private cardapioService: CardapioService, private route: Router) { }
 
   ngOnInit(): void {
     this.mesaService.getAllMesas().subscribe(
@@ -69,8 +71,14 @@ export class MesaComponent implements OnInit {
 
     setInterval(() => {
       this.date = new Date();
-    }, 10000);
-
+    }, 1000);
+    setInterval(()=> {
+      this.mesaService.getAllMesas().subscribe(
+        mesa => {
+          this.mesas = mesa;
+        }
+      )
+    }, 20000);
 
   }
   loadNovaMesa() {
@@ -196,6 +204,18 @@ export class MesaComponent implements OnInit {
       }
     )
 
+  }
+
+  removerCliente(idMesa: number){
+    this.mesaService.removeClienteMesa(idMesa).subscribe(
+      res => this.loadNovaMesa()
+    );
+  }
+
+  atenderCliente(idMesa: number){
+    this.mesaService.atenderCliente(idMesa).subscribe(
+      res => this.loadNovaMesa()
+    );
   }
 
   //------------Cardapio--------------

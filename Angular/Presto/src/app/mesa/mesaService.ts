@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Produto } from '../produto/produto';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +18,12 @@ export class MesaService extends BaseApi {
     super();
   }
   // Chamadas para mesa
-  getAllMesas(): Observable<any> {
-    return this.http.get<any>(
-      this.URL_BASE + '/mesa/mesausuario/' +
+  getAllMesas(): Observable<Mesa[]> {
+    return this.http.get<Mesa[]>(
+      this.URL_BASE + '/mesa/mesarestaurante/' +
       this.authService.loggedUser().idRestaurante
-    );
+    ).pipe
+    (tap(console.log));
   }
 
   criarMesa(mesa: Mesa): Observable<any> {
@@ -54,7 +56,7 @@ export class MesaService extends BaseApi {
 
   atualizarProdutosPedido(produtos: Produto[], id: number): Observable<any> {
     return this.http.put<any>(
-      this.URL_BASE + '/pedido//updateitensdopedido/' + id,
+      this.URL_BASE + '/pedido/updateitensdopedido/' + id,
       produtos
     );
   }
@@ -88,6 +90,18 @@ export class MesaService extends BaseApi {
   timerPedido(): Observable<any> {
     return this.http.put<Mesa[]>(
       this.URL_BASE + `/mesa/diminuirtempo/${this.authService.loggedUser().idRestaurante}`, true
+    )
+  }
+
+  removeClienteMesa(idMesa: number): Observable<any>{
+    return this.http.put<any>(
+      this.URL_BASE + `/mesa/mesaremovecliente/${idMesa}`, true
+    )
+  }
+
+  atenderCliente(idMesa: number): Observable<any>{
+    return this.http.put<any>(
+      this.URL_BASE + `/mesa/clienteatendido/${idMesa}`, true
     )
   }
 }
